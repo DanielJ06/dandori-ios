@@ -90,7 +90,7 @@ struct DSShowcase: View {
     // MARK: - Theme Selector
     
     private var themeSelector: some View {
-        DS.Card.create {
+        DandoriCard(variant: .default, size: .standard) {
             VStack(alignment: .leading, spacing: DS.Spacing.elementLG) {
                 DS.Text.create("Tema", variant: .headingSmall)
                 
@@ -117,7 +117,7 @@ struct DSShowcase: View {
     // MARK: - Colors Section
     
     private var colorsSection: some View {
-        DS.Card.create {
+        DandoriCard(variant: .default, size: .standard) {
             VStack(alignment: .leading, spacing: DS.Spacing.componentSM) {
                 DS.Text.create("Cores", variant: .headingSmall)
                 
@@ -172,7 +172,7 @@ struct DSShowcase: View {
     // MARK: - Typography Section
     
     private var typographySection: some View {
-        DS.Card.create {
+        DandoriCard(variant: .default, size: .standard) {
             VStack(alignment: .leading, spacing: DS.Spacing.componentSM) {
                 DS.Text.create("Tipografia", variant: .headingSmall)
                 
@@ -196,7 +196,7 @@ struct DSShowcase: View {
     // MARK: - Spacing Section
     
     private var spacingSection: some View {
-        DS.Card.create {
+        DandoriCard(variant: .default, size: .standard) {
             VStack(alignment: .leading, spacing: DS.Spacing.componentSM) {
                 DS.Text.create("Espaçamento", variant: .headingSmall)
                 
@@ -232,7 +232,7 @@ struct DSShowcase: View {
     // MARK: - Components Section
     
     private var componentsSection: some View {
-        DS.Card.create {
+        DandoriCard(variant: .default, size: .standard) {
             VStack(alignment: .leading, spacing: DS.Spacing.componentSM) {
                 DS.Text.create("Componentes", variant: .headingSmall)
                 
@@ -250,10 +250,16 @@ struct DSShowcase: View {
             DS.Text.create("Botões", variant: .label, color: .secondary)
             
             VStack(spacing: DS.Spacing.elementSM) {
-                DS.Button.create("Primary Button", variant: .primary) { }
-                DS.Button.create("Secondary Button", variant: .secondary) { }
-                DS.Button.create("Tertiary Button", variant: .tertiary) { }
-                DS.Button.create("Disabled Button", variant: .primary, state: .disabled) { }
+                DandoriButton("Primary Button", variant: .primary) { }
+                DandoriButton("Secondary Button", variant: .secondary) { }
+                DandoriButton("Tertiary Button", variant: .tertiary) { }
+                DandoriButton(
+                    title: "Disabled Button",
+                    icon: nil,
+                    variant: .primary,
+                    size: .medium,
+                    state: .disabled
+                ) { }
             }
         }
     }
@@ -274,7 +280,7 @@ struct DSShowcase: View {
         VStack(alignment: .leading, spacing: DS.Spacing.elementMD) {
             DS.Text.create("Cards", variant: .label, color: .secondary)
             
-            DS.Card.create(variant: .outlined) {
+            DandoriCard(variant: .outlined, size: .standard) {
                 VStack(alignment: .leading, spacing: DS.Spacing.elementMD) {
                     DS.Text.create("Card Title", variant: .headingSmall)
                     DS.Text.create("Card content with some text to demonstrate the card component.", variant: .bodyMedium)

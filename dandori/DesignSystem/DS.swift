@@ -71,6 +71,7 @@ struct DS {
         static let small = DSTokens.Radius.small
         static let medium = DSTokens.Radius.medium
         static let large = DSTokens.Radius.large
+        static let extraLarge = DSTokens.Radius.extraLarge
         static let full = DSTokens.Radius.full
     }
 }
