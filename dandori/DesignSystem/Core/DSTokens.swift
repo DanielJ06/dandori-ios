@@ -11,6 +11,7 @@ struct DSTokens {
             static let primary = DSFoundation.ColorPrimitives.white
             static let secondary = DSFoundation.ColorPrimitives.gray50
             static let tertiary = DSFoundation.ColorPrimitives.gray100
+            static let beigeAlt = DSFoundation.ColorPrimitives.gray100 // New token for beige alternative
             
             // Dark mode variants
             static let primaryDark = DSFoundation.ColorPrimitives.gray900
@@ -75,9 +76,9 @@ struct DSTokens {
         static let elementLG = DSFoundation.SpacingPrimitives.space12
         static let elementXL = DSFoundation.SpacingPrimitives.space16
         
-        // Component spacing
+        // Component spacing - Adjusted for better web alignment
         static let componentSM = DSFoundation.SpacingPrimitives.space8
-        static let componentMD = DSFoundation.SpacingPrimitives.space16
+        static let componentMD: CGFloat = 18 // Increased from 16 to better match web proportions
         static let componentLG = DSFoundation.SpacingPrimitives.space24
         static let componentXL = DSFoundation.SpacingPrimitives.space32
         
@@ -91,6 +92,7 @@ struct DSTokens {
         static let small = DSFoundation.RadiusPrimitives.radius6
         static let medium = DSFoundation.RadiusPrimitives.radius8
         static let large = DSFoundation.RadiusPrimitives.radius16
+        static let extraLarge = DSFoundation.RadiusPrimitives.radius24 // Added for cards and larger components
         static let full = DSFoundation.RadiusPrimitives.radiusFull
     }
     

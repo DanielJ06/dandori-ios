@@ -6,29 +6,29 @@ struct DSFoundation {
     
     // MARK: - Color Primitives
     struct ColorPrimitives {
-        // Neutral scale
+        // Neutral scale - Updated for Dandori Web alignment
         static let white = Color(red: 1.0, green: 1.0, blue: 1.0)
         static let black = Color(red: 0.0, green: 0.0, blue: 0.0)
-        static let gray50 = Color(red: 0.98, green: 0.98, blue: 0.98)
-        static let gray100 = Color(red: 0.92, green: 0.91, blue: 0.88)
-        static let gray200 = Color(red: 0.78, green: 0.76, blue: 0.72)
+        static let gray50 = Color(red: 0.98, green: 0.97, blue: 0.96) // #FAF8F5
+        static let gray100 = Color(red: 0.95, green: 0.93, blue: 0.90) // #F1ECE6 - new beige alt
+        static let gray200 = Color(red: 0.89, green: 0.85, blue: 0.80) // #E3D9CB
         static let gray300 = Color(red: 0.65, green: 0.63, blue: 0.59)
-        static let gray400 = Color(red: 0.42, green: 0.42, blue: 0.41)
-        static let gray700 = Color(red: 0.11, green: 0.11, blue: 0.10)
-        static let gray900 = Color(red: 0.04, green: 0.04, blue: 0.04)
+        static let gray400 = Color(red: 0.42, green: 0.42, blue: 0.41) // #6B6A68
+        static let gray700 = Color(red: 0.11, green: 0.11, blue: 0.10) // #1C1B1A
+        static let gray900 = Color(red: 0.11, green: 0.11, blue: 0.10) // #1C1B1A
         
-        // Accent primitives
-        static let teal400 = Color(red: 0.17, green: 0.65, blue: 0.60)
-        static let teal50 = Color(red: 0.90, green: 0.96, blue: 0.95)
-        static let teal900 = Color(red: 0.05, green: 0.37, blue: 0.34)
+        // Accent primitives - Updated for Dandori Web alignment
+        static let teal400 = Color(red: 0.17, green: 0.65, blue: 0.60) // #2BA69A
+        static let teal50 = Color(red: 0.90, green: 0.96, blue: 0.95) // #E5F6F3
+        static let teal900 = Color(red: 0.05, green: 0.37, blue: 0.34) // #0E5E57
         
-        static let sage400 = Color(red: 0.49, green: 0.67, blue: 0.54)
-        static let sage50 = Color(red: 0.89, green: 0.95, blue: 0.91)
-        static let sage900 = Color(red: 0.14, green: 0.30, blue: 0.22)
+        static let sage400 = Color(red: 0.49, green: 0.67, blue: 0.54) // #7CAB89
+        static let sage50 = Color(red: 0.89, green: 0.95, blue: 0.91) // #E3F1E8
+        static let sage900 = Color(red: 0.14, green: 0.30, blue: 0.22) // #244C37
         
-        static let turquoise400 = Color(red: 0.23, green: 0.69, blue: 0.72)
-        static let turquoise50 = Color(red: 0.90, green: 0.97, blue: 0.97)
-        static let turquoise900 = Color(red: 0.04, green: 0.31, blue: 0.34)
+        static let turquoise400 = Color(red: 0.23, green: 0.69, blue: 0.72) // #3AAFB9
+        static let turquoise50 = Color(red: 0.90, green: 0.97, blue: 0.97) // #E6F7F9
+        static let turquoise900 = Color(red: 0.04, green: 0.31, blue: 0.34) // #0B4F57
     }
     
     // MARK: - Spacing Primitives
@@ -52,6 +52,7 @@ struct DSFoundation {
         static let radius6: CGFloat = 6
         static let radius8: CGFloat = 8
         static let radius16: CGFloat = 16
+        static let radius24: CGFloat = 24 // Added for larger radius values
         static let radiusFull: CGFloat = 9999
     }
     

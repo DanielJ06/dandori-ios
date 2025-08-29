@@ -8,36 +8,37 @@ Este documento lista todos os tokens definidos no seu Design System, organizados
 
 ### Surface
 - `primary`: DSFoundation.ColorPrimitives.white (#FFFFFF)
-- `secondary`: DSFoundation.ColorPrimitives.gray50 (#FAFAFA)
-- `tertiary`: DSFoundation.ColorPrimitives.gray100 (#EBEAE1) - Tom mais neutro
-- `primaryDark`: DSFoundation.ColorPrimitives.gray900 (#0A0A09)
-- `secondaryDark`: DSFoundation.ColorPrimitives.gray700 (#1C1C19)
-- `tertiaryDark`: DSFoundation.ColorPrimitives.gray400 (#6B6B69)
+- `secondary`: DSFoundation.ColorPrimitives.gray50 (#FAF8F5) - Updated for Dandori Web
+- `tertiary`: DSFoundation.ColorPrimitives.gray100 (#F1ECE6) - Updated beige tone
+- `beigeAlt`: DSFoundation.ColorPrimitives.gray100 (#F1ECE6) - New beige alternative token
+- `primaryDark`: DSFoundation.ColorPrimitives.gray900 (#1C1B1A) - Updated
+- `secondaryDark`: DSFoundation.ColorPrimitives.gray700 (#1C1B1A) - Updated
+- `tertiaryDark`: DSFoundation.ColorPrimitives.gray400 (#6B6A68) - Updated
 
 ### Content
-- `primary`: DSFoundation.ColorPrimitives.gray900 (#0A0A09)
-- `secondary`: DSFoundation.ColorPrimitives.gray400 (#6B6B69)
+- `primary`: DSFoundation.ColorPrimitives.gray900 (#1C1B1A) - Updated
+- `secondary`: DSFoundation.ColorPrimitives.gray400 (#6B6A68) - Updated
 - `inverse`: DSFoundation.ColorPrimitives.white (#FFFFFF)
 - `primaryDark`: DSFoundation.ColorPrimitives.white (#FFFFFF)
-- `secondaryDark`: DSFoundation.ColorPrimitives.gray200 (#C7C2B7) - Melhor contraste
-- `inverseDark`: DSFoundation.ColorPrimitives.gray900 (#0A0A09)
+- `secondaryDark`: DSFoundation.ColorPrimitives.gray200 (#E3D9CB) - Updated for better contrast
+- `inverseDark`: DSFoundation.ColorPrimitives.gray900 (#1C1B1A) - Updated
 
 ### Border
-- `default`: DSFoundation.ColorPrimitives.gray200 (#C7C2B7) - Tom intermediário
-- `focus`: DSFoundation.ColorPrimitives.gray400 (#6B6B69)
-- `defaultDark`: DSFoundation.ColorPrimitives.gray700 (#1C1C19)
-- `focusDark`: DSFoundation.ColorPrimitives.gray400 (#6B6B69)
+- `default`: DSFoundation.ColorPrimitives.gray200 (#E3D9CB) - Updated for Dandori Web
+- `focus`: DSFoundation.ColorPrimitives.gray400 (#6B6A68) - Updated
+- `defaultDark`: DSFoundation.ColorPrimitives.gray700 (#1C1B1A) - Updated
+- `focusDark`: DSFoundation.ColorPrimitives.gray400 (#6B6A68) - Updated
 
 ### Interactive
-- `primary`: DSFoundation.ColorPrimitives.teal400 (#2BA59A)
-- `primaryHover`: DSFoundation.ColorPrimitives.teal900 (#0D5E57)
-- `secondary`: DSFoundation.ColorPrimitives.gray100 (#E3D9CC)
-- `secondaryHover`: DSFoundation.ColorPrimitives.gray400 (#6B6B69)
+- `primary`: DSFoundation.ColorPrimitives.teal400 (#2BA69A) - Updated
+- `primaryHover`: DSFoundation.ColorPrimitives.teal900 (#0E5E57) - Updated
+- `secondary`: DSFoundation.ColorPrimitives.gray100 (#F1ECE6) - Updated
+- `secondaryHover`: DSFoundation.ColorPrimitives.gray400 (#6B6A68) - Updated
 
 ### Accent
-- `teal`: base (#2BA59A), light (#E6F5F3), text (#0D5E57)
-- `sage`: base (#7DA98A), light (#E3F2E8), text (#244C38)
-- `turquoise`: base (#3BC0B7), light (#E6F7F7), text (#0A4F57)
+- `teal`: base (#2BA69A), light (#E5F6F3), text (#0E5E57) - Updated for Dandori Web
+- `sage`: base (#7CAB89), light (#E3F1E8), text (#244C37) - Updated for Dandori Web
+- `turquoise`: base (#3AAFB9), light (#E6F7F9), text (#0B4F57) - Updated for Dandori Web
 
 ---
 
@@ -52,7 +53,7 @@ Este documento lista todos os tokens definidos no seu Design System, organizados
 
 ### Component
 - `componentSM`: DSFoundation.SpacingPrimitives.space8 (8)
-- `componentMD`: DSFoundation.SpacingPrimitives.space16 (16)
+- `componentMD`: 18 - Updated for better web alignment
 - `componentLG`: DSFoundation.SpacingPrimitives.space24 (24)
 - `componentXL`: DSFoundation.SpacingPrimitives.space32 (32)
 
@@ -66,6 +67,7 @@ Este documento lista todos os tokens definidos no seu Design System, organizados
 - `small`: DSFoundation.RadiusPrimitives.radius6 (6)
 - `medium`: DSFoundation.RadiusPrimitives.radius8 (8)
 - `large`: DSFoundation.RadiusPrimitives.radius16 (16)
+- `extraLarge`: DSFoundation.RadiusPrimitives.radius24 (24) - New token for cards and larger components
 - `full`: DSFoundation.RadiusPrimitives.radiusFull (9999)
 
 ---
@@ -96,16 +98,16 @@ Este documento lista todos os tokens definidos no seu Design System, organizados
 ## Primitivos (DSFoundation)
 
 ### Cores
-- `white` (#FFFFFF), `black` (#000000), `gray50` (#FAFAFA), `gray100` (#EBEAE1), `gray200` (#C7C2B7), `gray300` (#A6A196), `gray400` (#6B6B69), `gray700` (#1C1C19), `gray900` (#0A0A09)
-- `teal400` (#2BA59A), `teal50` (#E6F5F3), `teal900` (#0D5E57)
-- `sage400` (#7DA98A), `sage50` (#E3F2E8), `sage900` (#244C38)
-- `turquoise400` (#3BC0B7), `turquoise50` (#E6F7F7), `turquoise900` (#0A4F57)
+- `white` (#FFFFFF), `black` (#000000), `gray50` (#FAF8F5), `gray100` (#F1ECE6), `gray200` (#E3D9CB), `gray300` (#A6A196), `gray400` (#6B6A68), `gray700` (#1C1B1A), `gray900` (#1C1B1A) - Updated for Dandori Web alignment
+- `teal400` (#2BA69A), `teal50` (#E5F6F3), `teal900` (#0E5E57) - Updated for Dandori Web
+- `sage400` (#7CAB89), `sage50` (#E3F1E8), `sage900` (#244C37) - Updated for Dandori Web
+- `turquoise400` (#3AAFB9), `turquoise50` (#E6F7F9), `turquoise900` (#0B4F57) - Updated for Dandori Web
 
 ### Espaçamento
 - `space2` (2), `space4` (4), `space8` (8), `space12` (12), `space16` (16), `space20` (20), `space24` (24), `space32` (32), `space64` (64), `space80` (80)
 
 ### Raio
-- `radius2` (2), `radius4` (4), `radius6` (6), `radius8` (8), `radius16` (16), `radiusFull` (9999)
+- `radius2` (2), `radius4` (4), `radius6` (6), `radius8` (8), `radius16` (16), `radius24` (24), `radiusFull` (9999) - Added radius24 for larger components
 
 ### Tipografia
 - Tamanhos: `fontSize11` (11), `fontSize12` (12), `fontSize14` (14), `fontSize16` (16), `fontSize18` (18), `fontSize20` (20), `fontSize24` (24), `fontSize30` (30), `fontSize36` (36)
@@ -114,4 +116,4 @@ Este documento lista todos os tokens definidos no seu Design System, organizados
 
 ---
 
-> Documento gerado automaticamente a partir dos arquivos DSTokens.swift e DSFoundation.swift. Valores de cor em hexadecimal aproximados, baseados nos valores RGB definidos no código.
+> Documento atualizado em 29 de agosto de 2025 com as mudanças implementadas para aproximação visual do Dandori Web. Valores de cor em hexadecimal baseados nos valores RGB definidos no código após implementação das recomendações do ajustes_ds_mobile_para_dandori_Version3.md.
