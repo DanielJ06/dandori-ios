@@ -33,6 +33,7 @@ struct DS {
     
     // MARK: - Typography Tokens
     struct Typography {
+        static let displayXL = DSTokens.Typography.displayXL
         static let display = DSTokens.Typography.display
         static let headingLarge = DSTokens.Typography.headingLarge
         static let headingMedium = DSTokens.Typography.headingMedium

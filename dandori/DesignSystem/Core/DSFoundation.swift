@@ -10,7 +10,9 @@ struct DSFoundation {
         static let white = Color(red: 1.0, green: 1.0, blue: 1.0)
         static let black = Color(red: 0.0, green: 0.0, blue: 0.0)
         static let gray50 = Color(red: 0.98, green: 0.98, blue: 0.98)
-        static let gray100 = Color(red: 0.89, green: 0.85, blue: 0.80)
+        static let gray100 = Color(red: 0.92, green: 0.91, blue: 0.88)
+        static let gray200 = Color(red: 0.78, green: 0.76, blue: 0.72)
+        static let gray300 = Color(red: 0.65, green: 0.63, blue: 0.59)
         static let gray400 = Color(red: 0.42, green: 0.42, blue: 0.41)
         static let gray700 = Color(red: 0.11, green: 0.11, blue: 0.10)
         static let gray900 = Color(red: 0.04, green: 0.04, blue: 0.04)
@@ -64,6 +66,7 @@ struct DSFoundation {
         static let fontSize20: CGFloat = 20
         static let fontSize24: CGFloat = 24
         static let fontSize30: CGFloat = 30
+        static let fontSize36: CGFloat = 36
         
         // Font families
         static let fontFamilyInter = "Inter"

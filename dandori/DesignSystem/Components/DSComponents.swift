@@ -48,6 +48,7 @@ extension DS {
     
     struct Text {
         enum Variant {
+            case displayXL
             case display
             case headingLarge
             case headingMedium  
@@ -212,6 +213,7 @@ private struct DSTextView: View {
     
     private var typographyToken: TypographyToken {
         switch variant {
+        case .displayXL: return DSTokens.Typography.displayXL
         case .display: return DSTokens.Typography.display
         case .headingLarge: return DSTokens.Typography.headingLarge
         case .headingMedium: return DSTokens.Typography.headingMedium

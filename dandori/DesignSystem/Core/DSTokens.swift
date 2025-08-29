@@ -25,12 +25,12 @@ struct DSTokens {
             
             // Dark mode variants
             static let primaryDark = DSFoundation.ColorPrimitives.white
-            static let secondaryDark = DSFoundation.ColorPrimitives.gray100
+            static let secondaryDark = DSFoundation.ColorPrimitives.gray200 // Melhor contraste
             static let inverseDark = DSFoundation.ColorPrimitives.gray900
         }
         
         struct Border {
-            static let `default` = DSFoundation.ColorPrimitives.gray100
+            static let `default` = DSFoundation.ColorPrimitives.gray200 // Usando tom intermediário
             static let focus = DSFoundation.ColorPrimitives.gray400
             
             // Dark mode variants
@@ -97,6 +97,13 @@ struct DSTokens {
     // MARK: - Semantic Typography
     struct Typography {
         // Display text
+        static let displayXL = TypographyToken(
+            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyMerriweather,
+            fontSize: DSFoundation.TypographyPrimitives.fontSize36,
+            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
+            lineHeight: 1.2
+        )
+        
         static let display = TypographyToken(
             fontFamily: DSFoundation.TypographyPrimitives.fontFamilyMerriweather,
             fontSize: DSFoundation.TypographyPrimitives.fontSize30,
@@ -153,21 +160,21 @@ struct DSTokens {
             fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
             fontSize: DSFoundation.TypographyPrimitives.fontSize14,
             fontWeight: DSFoundation.TypographyPrimitives.weightMedium,
-            lineHeight: 1.0
+            lineHeight: 1.2
         )
         
         static let label = TypographyToken(
             fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
             fontSize: DSFoundation.TypographyPrimitives.fontSize12,
             fontWeight: DSFoundation.TypographyPrimitives.weightMedium,
-            lineHeight: 1.0
+            lineHeight: 1.2
         )
         
         static let caption = TypographyToken(
             fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
             fontSize: DSFoundation.TypographyPrimitives.fontSize11,
             fontWeight: DSFoundation.TypographyPrimitives.weightMedium,
-            lineHeight: 1.0
+            lineHeight: 1.2
         )
     }
 }

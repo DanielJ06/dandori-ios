@@ -53,6 +53,7 @@ struct DSThemeBorderColors {
 }
 
 struct DSThemeTypography {
+    let displayXL: TypographyToken
     let display: TypographyToken
     let headingLarge: TypographyToken
     let headingMedium: TypographyToken
@@ -159,6 +160,7 @@ struct DSDefaultTheme: DSTheme {
     
     var typography: DSThemeTypography {
         DSThemeTypography(
+            displayXL: DSTokens.Typography.displayXL,
             display: DSTokens.Typography.display,
             headingLarge: DSTokens.Typography.headingLarge,
             headingMedium: DSTokens.Typography.headingMedium,
