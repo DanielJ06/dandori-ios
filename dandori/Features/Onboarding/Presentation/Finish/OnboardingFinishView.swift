@@ -9,49 +9,74 @@ import SwiftUI
 
 struct OnboardingFinishView: View {
     @AppStorage("profile.name") private var name: String = ""
-    @Environment(\.accentColor) private var accent
     @State private var showToast = false
     @State private var showDesignSystem = false
     
     let navigator: OnboardingNavigating
     
     var body: some View {
-        VStack(spacing: DS.Spacing.xxl) {
+        VStack(spacing: DS.Spacing.componentXL) {
             Spacer()
             
-            VStack(spacing: DS.Spacing.lg) {
-                DS.Eyebrow.accent("Finalização", accent: accent.base)
+            VStack(spacing: DS.Spacing.componentMD) {
+                Text("Finalização")
+                    .font(DS.Typography.headingLarge.font)
+                    .foregroundColor(DS.Colors.Content.primary)
+                    .multilineTextAlignment(.center)
                 
                 Text("Tudo pronto\(name.isEmpty ? "" : ", \(name)")!")
-                    .font(DS.Typography.merriweather(size: .xxl, weight: .bold))
+                    .font(DS.Typography.headingMedium.font)
+                    .foregroundColor(DS.Colors.Content.primary)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(DS.Colors.neutral.textPrimary)
                 
                 Text("Chegou a hora de planejar seu primeiro dia com o Dandori.")
-                    .font(DS.Typography.body)
+                    .font(DS.Typography.bodyLarge.font)
+                    .foregroundColor(DS.Colors.Content.secondary)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(DS.Colors.neutral.textSecondary)
-                    .lineSpacing(4)
+                    .lineSpacing(DS.Spacing.elementXS)
             }
             
-            // Card de exemplo
-            DS.UnifiedCard.withMultipleActions(
-                title: "Próximos Passos",
-                subtitle: "Chegou a hora de planejar seu primeiro dia com o Dandori.",
-                tags: ["Planejamento", "Primeiro Dia"],
-                actions: [
-                    DS.UnifiedCard.CardAction(title: "Planejar meu primeiro dia", isPrimary: true) {
-                        showToast = true
-                    },
-                    DS.UnifiedCard.CardAction(title: "Ver Design System") {
-                        showDesignSystem = true
-                    }
-                ]
-            )
+            VStack(spacing: DS.Spacing.componentMD) {
+                Text("Próximos Passos")
+                    .font(DS.Typography.headingSmall.font)
+                    .foregroundColor(DS.Colors.Content.primary)
+                    .multilineTextAlignment(.center)
+                
+                Text("Chegou a hora de planejar seu primeiro dia com o Dandori.")
+                    .font(DS.Typography.bodyMedium.font)
+                    .foregroundColor(DS.Colors.Content.secondary)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(DS.Spacing.elementXS)
+            }
+            
+            VStack(spacing: DS.Spacing.elementLG) {
+                Button("Planejar meu primeiro dia") {
+                    showToast = true
+                }
+                .font(DS.Typography.button.font)
+                .foregroundColor(DS.Colors.Content.inverse)
+                .padding(.horizontal, DS.Spacing.componentMD)
+                .padding(.vertical, DS.Spacing.elementLG)
+                .background(DS.Colors.Interactive.primary)
+                .dsButtonRadius()
+                
+                Button("Ver Design System") {
+                    showDesignSystem = true
+                }
+                .font(DS.Typography.button.font)
+                .foregroundColor(DS.Colors.Interactive.primary)
+                .padding(.horizontal, DS.Spacing.componentMD)
+                .padding(.vertical, DS.Spacing.elementLG)
+                .background(DS.Colors.Interactive.secondary)
+                .overlay(
+                    RoundedRectangle(cornerRadius: DS.Radius.medium)
+                        .stroke(DS.Colors.Interactive.primary, lineWidth: 1)
+                )
+                .dsButtonRadius()
+            }
             
             Spacer()
         }
-        .dsPagePadding()
-        .background(DS.Colors.neutral.background)
+        .dsLayoutPadding()
     }
 }

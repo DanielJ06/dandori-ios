@@ -9,7 +9,6 @@ import SwiftUI
 
 struct OnboardingNameView: View {
     @AppStorage("profile.name") private var name: String = ""
-    @Environment(\.accentColor) private var accent
     let navigator: OnboardingNavigating
     
     private var isNameValid: Bool {
@@ -17,59 +16,59 @@ struct OnboardingNameView: View {
     }
 
     var body: some View {
-        VStack(spacing: DS.Spacing.xxl) {
+        VStack(spacing: DS.Spacing.componentLG) {
             Spacer()
             
-            VStack(spacing: DS.Spacing.lg) {
-                DS.Eyebrow.accent("Personalização", accent: accent.base)
+            VStack(spacing: DS.Spacing.componentMD) {
+                Text("Personalização")
+                    .font(DS.Typography.headingLarge.font)
+                    .foregroundColor(DS.Colors.Content.primary)
+                    .multilineTextAlignment(.center)
                 
                 Text("Como podemos te chamar?")
-                    .font(DS.Typography.merriweather(size: .xxl, weight: .semibold))
+                    .font(DS.Typography.headingMedium.font)
+                    .foregroundColor(DS.Colors.Content.secondary)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(DS.Colors.neutral.textPrimary)
                 
                 Text("Queremos tornar seu roteiro mais pessoal...")
-                    .font(DS.Typography.body)
+                    .font(DS.Typography.bodyLarge.font)
+                    .foregroundColor(DS.Colors.Content.secondary)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(DS.Colors.neutral.textSecondary)
+                    .lineSpacing(DS.Spacing.elementXS)
             }
             
-            VStack(spacing: DS.Spacing.md) {
+            VStack(spacing: DS.Spacing.elementMD) {
                 TextField("Seu nome", text: $name)
-                    .font(DS.Typography.body)
-                    .padding(DS.Spacing.lg)
-                    .background(DS.Colors.neutral.background)
+                    .font(DS.Typography.bodyLarge.font)
+                    .foregroundColor(DS.Colors.Content.primary)
+                    .padding(DS.Spacing.elementLG)
+                    .background(DS.Colors.Surface.secondary)
                     .overlay(
-                        RoundedRectangle(cornerRadius: DS.Radius.lg)
-                            .stroke(
-                                isNameValid ? accent.base : DS.Colors.neutral.border,
-                                lineWidth: isNameValid ? 2 : 1
-                            )
+                        RoundedRectangle(cornerRadius: DS.Radius.medium)
+                            .stroke(DS.Colors.Border.default, lineWidth: 1)
                     )
-                    .dsCardRadius()
+                    .dsButtonRadius()
                 
                 if !name.isEmpty && !isNameValid {
-                    HStack {
-                        Text("Nome não pode estar vazio")
-                            .font(DS.Typography.tag)
-                            .foregroundColor(.red)
-                        Spacer()
-                    }
+                    Text("Nome não pode estar vazio")
+                        .font(DS.Typography.bodySmall.font)
+                        .foregroundColor(.red)
                 }
             }
-            .padding(.top, DS.Spacing.lg)
             
             Spacer()
             
-            DS.Button.primary(
-                "Continuar",
-                size: .fullWidth,
-                isDisabled: !isNameValid
-            ) {
+            Button("Continuar") {
                 navigator.toFinish()
             }
+            .font(DS.Typography.button.font)
+            .foregroundColor(isNameValid ? DS.Colors.Content.inverse : DS.Colors.Content.secondary)
+            .padding(.horizontal, DS.Spacing.componentMD)
+            .padding(.vertical, DS.Spacing.elementLG)
+            .background(isNameValid ? DS.Colors.Interactive.primary : DS.Colors.Surface.tertiary)
+            .dsButtonRadius()
+            .disabled(!isNameValid)
         }
-        .dsPagePadding()
-        .background(DS.Colors.neutral.background)
+        .dsLayoutPadding()
     }
 }

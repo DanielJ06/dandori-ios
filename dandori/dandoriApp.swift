@@ -11,6 +11,10 @@ import SwiftUI
 struct dandoriApp: App {
     let persistenceController = PersistenceController.shared
 
+    init() {
+        DSFontLoader.loadFonts()
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()

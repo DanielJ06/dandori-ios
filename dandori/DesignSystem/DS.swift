@@ -1,109 +1,99 @@
 import SwiftUI
 
-/// Namespace principal do Design System Dandori
-/// 
-/// Este arquivo serve como ponto de entrada para todos os tokens
-/// do design system, facilitando importação e uso consistente.
-///
-/// Exemplo de uso:
-/// ```swift
-/// import SwiftUI
-/// 
-/// struct MyView: View {
-///     var body: some View {
-///         VStack {
-///             Text("Hello World")
-///                 .font(DS.Typography.cardTitle)
-///                 .foregroundColor(DS.Colors.neutral.text)
-///                 .dsPagePadding()
-///         }
-///         .background(DS.Colors.neutral.background)
-///         .dsCardRadius()
-///         .accentColor(.sage)
-///     }
-/// }
-/// ```
-
+/// Namespace principal do Design System refatorado
+/// Segue princípios de Clean Architecture e Single Responsibility
 struct DS {
     
-    // MARK: - Tokens
-    
-    /// Namespace para cores do design system
+    // MARK: - Color Tokens
     struct Colors {
-        static let neutral = DSColors.Neutral.self
-        static let states = DSColors.States.self
+        struct Surface {
+            static let primary = DSTokens.Colors.Surface.primary
+            static let secondary = DSTokens.Colors.Surface.secondary  
+            static let tertiary = DSTokens.Colors.Surface.tertiary
+        }
+        
+        struct Content {
+            static let primary = DSTokens.Colors.Content.primary
+            static let secondary = DSTokens.Colors.Content.secondary
+            static let inverse = DSTokens.Colors.Content.inverse
+        }
+        
+        struct Border {
+            static let `default` = DSTokens.Colors.Border.default
+            static let focus = DSTokens.Colors.Border.focus
+        }
+        
+        struct Interactive {
+            static let primary = DSTokens.Colors.Interactive.primary
+            static let primaryHover = DSTokens.Colors.Interactive.primaryHover
+            static let secondary = DSTokens.Colors.Interactive.secondary
+            static let secondaryHover = DSTokens.Colors.Interactive.secondaryHover
+        }
     }
     
-    /// Namespace para tipografia
+    // MARK: - Typography Tokens
     struct Typography {
-        static let button = DSTypography.button
-        static let tag = DSTypography.tag
-        static let eyebrow = DSTypography.eyebrow
-        static let cardTitle = DSTypography.cardTitle
-        static let listText = DSTypography.listText
-        static let body = DSTypography.body
-        static let bodySecondary = DSTypography.bodySecondary
-        
-        static func inter(size: DSTypography.FontSize, weight: DSTypography.FontWeight = .regular) -> Font {
-            DSTypography.inter(size: size, weight: weight)
-        }
-        
-        static func merriweather(size: DSTypography.FontSize, weight: DSTypography.FontWeight = .regular) -> Font {
-            DSTypography.merriweather(size: size, weight: weight)
-        }
+        static let display = DSTokens.Typography.display
+        static let headingLarge = DSTokens.Typography.headingLarge
+        static let headingMedium = DSTokens.Typography.headingMedium
+        static let headingSmall = DSTokens.Typography.headingSmall
+        static let bodyLarge = DSTokens.Typography.bodyLarge
+        static let bodyMedium = DSTokens.Typography.bodyMedium
+        static let bodySmall = DSTokens.Typography.bodySmall
+        static let button = DSTokens.Typography.button
+        static let label = DSTokens.Typography.label
+        static let caption = DSTokens.Typography.caption
     }
     
-    /// Namespace para espaçamentos
+    // MARK: - Spacing Tokens
     struct Spacing {
-        static let xs = DSSpacing.xs
-        static let sm = DSSpacing.sm
-        static let md = DSSpacing.md
-        static let lg = DSSpacing.lg
-        static let xl = DSSpacing.xl
-        static let xxl = DSSpacing.xxl
-        static let xxxl = DSSpacing.xxxl
+        // Element level
+        static let elementXS = DSTokens.Spacing.elementXS
+        static let elementSM = DSTokens.Spacing.elementSM
+        static let elementMD = DSTokens.Spacing.elementMD
+        static let elementLG = DSTokens.Spacing.elementLG
+        static let elementXL = DSTokens.Spacing.elementXL
         
-        static let page = DSSpacing.Page.self
+        // Component level
+        static let componentSM = DSTokens.Spacing.componentSM
+        static let componentMD = DSTokens.Spacing.componentMD
+        static let componentLG = DSTokens.Spacing.componentLG
+        static let componentXL = DSTokens.Spacing.componentXL
+        
+        // Layout level
+        static let layoutMD = DSTokens.Spacing.layoutMD
+        static let layoutLG = DSTokens.Spacing.layoutLG
     }
     
-    /// Namespace para border radius
+    // MARK: - Radius Tokens
     struct Radius {
-        static let sm = DSRadius.sm
-        static let md = DSRadius.md
-        static let lg = DSRadius.lg
-        static let full = DSRadius.full
+        static let small = DSTokens.Radius.small
+        static let medium = DSTokens.Radius.medium
+        static let large = DSTokens.Radius.large
+        static let full = DSTokens.Radius.full
     }
-    
-    // MARK: - Environment & Providers
-    
-    // AccentProvider está disponível globalmente
 }
 
-// MARK: - Global Extensions
+// MARK: - View Extensions
 
-/// Extension global para facilitar aplicação de padding e radius
 extension View {
-    func dsPagePadding() -> some View {
-        self.pagePadding()
+    /// Aplica padding de layout padrão
+    func dsLayoutPadding() -> some View {
+        self.padding(DS.Spacing.layoutLG)
     }
     
+    /// Aplica padding de componente padrão
+    func dsComponentPadding() -> some View {
+        self.padding(DS.Spacing.componentMD)
+    }
+    
+    /// Aplica radius de card padrão
     func dsCardRadius() -> some View {
-        self.cornerRadius(DS.Radius.lg)
+        self.clipShape(RoundedRectangle(cornerRadius: DS.Radius.large))
     }
-}
-
-// MARK: - Theme Management
-
-/// Gerenciador de tema global da aplicação
-@MainActor
-class DSThemeManager: ObservableObject {
-    @Published var currentAccent: AccentColor = .teal
     
-    static let shared = DSThemeManager()
-    
-    private init() {}
-    
-    func setAccent(_ accent: AccentColor) {
-        currentAccent = accent
+    /// Aplica radius de botão padrão
+    func dsButtonRadius() -> some View {
+        self.clipShape(RoundedRectangle(cornerRadius: DS.Radius.medium))
     }
 }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject private var router = Router()
-    @StateObject private var themeManager = DSThemeManager.shared
     private let registry = RouteRegistry()
 
     init() {
@@ -17,7 +16,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        AccentProvider(accent: themeManager.currentAccent) {
+        DSThemeRoot {
             NavigationStack(path: $router.path) {
                 registry.view(for: .wrap(OnboardingRoute.intro), router: router)
                     .registerAppDestinations(router: router, registry: registry)
