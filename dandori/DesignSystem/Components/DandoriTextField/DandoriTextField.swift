@@ -86,6 +86,7 @@ struct DandoriTextField: View {
 // MARK: - Convenience Initializers
 
 extension DandoriTextField {
+    /// Cria um campo de texto simples
     init(
         text: Binding<String>,
         placeholder: String,
@@ -99,24 +100,6 @@ extension DandoriTextField {
         self.state = .normal
         self.icon = nil
         self.helperText = nil
-        self.errorText = nil
-    }
-    
-    init(
-        text: Binding<String>,
-        placeholder: String,
-        icon: Image,
-        variant: DandoriTextFieldVariant = .default,
-        size: DandoriTextFieldSize = .medium,
-        helperText: String? = nil
-    ) {
-        self._text = text
-        self.placeholder = placeholder
-        self.variant = variant
-        self.size = size
-        self.state = .normal
-        self.icon = icon
-        self.helperText = helperText
         self.errorText = nil
     }
 }
@@ -145,6 +128,74 @@ struct DandoriSearchField: View {
     }
 }
 
+// MARK: - Preview
+
+#Preview("DandoriTextField") {
+    @Previewable @State var text1 = ""
+    @Previewable @State var text2 = "Texto preenchido"
+    @Previewable @State var text3 = ""
+    @Previewable @State var text4 = ""
+    
+    ScrollView {
+        VStack(spacing: 24) {
+            // Variants
+            VStack(spacing: 16) {
+                Text("TextField Variants")
+                    .font(.title2.weight(.semibold))
+                
+                VStack(spacing: 12) {
+                    DandoriTextField(
+                        text: $text1,
+                        placeholder: "Default variant",
+                        variant: .default
+                    )
+                    
+                    DandoriTextField(
+                        text: $text2,
+                        placeholder: "Outlined variant",
+                        variant: .outlined
+                    )
+                }
+            }
+            
+            // Sizes
+            VStack(spacing: 16) {
+                Text("TextField Sizes")
+                    .font(.title2.weight(.semibold))
+                
+                VStack(spacing: 12) {
+                    DandoriTextField(
+                        text: $text3,
+                        placeholder: "Medium size",
+                        size: .medium
+                    )
+                    
+                    DandoriTextField(
+                        text: $text4,
+                        placeholder: "Medium size",
+                        size: .medium
+                    )
+                }
+            }
+            
+            // Specialized
+            VStack(spacing: 16) {
+                Text("Specialized TextFields")
+                    .font(.title2.weight(.semibold))
+                
+                VStack(spacing: 12) {
+                    DandoriSearchField(
+                        text: $text1,
+                        placeholder: "Search...",
+                        onSearchSubmit: { print("Search submitted") }
+                    )
+                }
+            }
+        }
+        .padding()
+    }
+}
+
 struct DandoriEmailField: View {
     @Binding var email: String
     @State private var isValid: Bool = true
@@ -158,19 +209,19 @@ struct DandoriEmailField: View {
     }
     
     var body: some View {
-        DandoriTextField(
-            text: $email,
-            placeholder: "Digite seu email",
-            variant: .default,
-            size: .medium,
-            state: state,
-            icon: Image(systemName: "envelope"),
-            helperText: "Utilizaremos seu email apenas para comunicações importantes",
-            errorText: errorText
-        )
-        .keyboardType(.emailAddress)
-        .textContentType(.emailAddress)
-        .autocapitalization(.none)
+        VStack {
+            DandoriTextField(
+                text: $email,
+                placeholder: "Digite seu email",
+                variant: .default,
+                size: .medium,
+                state: state,
+                icon: Image(systemName: "envelope"),
+                helperText: "Utilizaremos seu email apenas para comunicações importantes",
+                errorText: errorText
+            )
+        }
+        .textFieldStyle(.automatic)
         .onChange(of: email) { _, newValue in
             validateEmail(newValue)
         }

@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - DandoriButton Environment Support
 
 struct DandoriButtonAppearanceKey: EnvironmentKey {
+    typealias Value = DandoriButtonVariant?
     static let defaultValue: DandoriButtonVariant? = nil
 }
 

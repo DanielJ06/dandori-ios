@@ -4,6 +4,7 @@ import SwiftUI
 
 /// Badge/Label component seguindo as diretrizes do Design System Dandori
 /// Implementa visual alinhado com a versão web usando tokens atualizados
+/// Unificado para cobrir tanto badges quanto chips (anteriormente separados)
 struct DandoriBadge: View {
     let text: String
     let variant: DandoriBadgeVariant
@@ -20,7 +21,7 @@ struct DandoriBadge: View {
     }
     
     var body: some View {
-        HStack(spacing: DSTokens.Spacing.elementXS) {
+        HStack(alignment: .center, spacing: DSTokens.Spacing.elementXS) {
             if let icon = icon {
                 icon
                     .font(.system(size: layout.iconSize, weight: .medium))
@@ -47,6 +48,7 @@ struct DandoriBadge: View {
 // MARK: - Convenience Initializers
 
 extension DandoriBadge {
+    /// Cria um badge simples apenas com texto
     init(
         _ text: String,
         variant: DandoriBadgeVariant = .default,
@@ -58,6 +60,7 @@ extension DandoriBadge {
         self.icon = nil
     }
     
+    /// Cria um badge com texto e ícone
     init(
         _ text: String,
         icon: Image,
@@ -68,6 +71,76 @@ extension DandoriBadge {
         self.variant = variant
         self.size = size
         self.icon = icon
+    }
+}
+
+// MARK: - Preview
+
+#Preview("DandoriBadge Variants") {
+    ScrollView {
+        VStack(spacing: 24) {
+            // Variants
+            VStack(spacing: 16) {
+                Text("Badge Variants")
+                    .font(.title2.weight(.semibold))
+                
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        DandoriBadge("Default", variant: .default)
+                        DandoriBadge("Filled", variant: .filled)
+                        DandoriBadge("Accent", variant: .accent)
+                    }
+                    
+                    HStack(spacing: 12) {
+                        DandoriBadge("Status", variant: .status)
+                        DandoriBadge("Subtle", variant: .subtle)
+                    }
+                }
+            }
+            
+            // Sizes
+            VStack(spacing: 16) {
+                Text("Badge Sizes")
+                    .font(.title2.weight(.semibold))
+                
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        DandoriBadge("Small", variant: .accent, size: .small)
+                        DandoriBadge("Medium", variant: .accent, size: .medium)
+                        DandoriBadge("Large", variant: .accent, size: .large)
+                    }
+                }
+            }
+            
+            // With Icons
+            VStack(spacing: 16) {
+                Text("With Icons")
+                    .font(.title2.weight(.semibold))
+                
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        DandoriBadge(
+                            "Star",
+                            icon: Image(systemName: "star.fill"),
+                            variant: .accent
+                        )
+                        
+                        DandoriBadge(
+                            "Clock",
+                            icon: Image(systemName: "clock"),
+                            variant: .filled
+                        )
+                        
+                        DandoriBadge(
+                            "Check",
+                            icon: Image(systemName: "checkmark"),
+                            variant: .status
+                        )
+                    }
+                }
+            }
+        }
+        .padding()
     }
 }
 

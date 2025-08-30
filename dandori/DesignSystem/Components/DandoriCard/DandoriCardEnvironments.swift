@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - DandoriCard Environment Support
 
 struct DandoriCardAppearanceKey: EnvironmentKey {
+    typealias Value = DandoriCardVariant?
     static let defaultValue: DandoriCardVariant? = nil
 }
 

@@ -27,7 +27,7 @@ struct ComponentsTest: View {
             )
             
             // Test DandoriChip
-            DandoriChip(text: "Test Chip", variant: .accent, size: .medium)
+            DandoriBadge("Test Badge", variant: .accent, size: .medium)
             
             // Test DandoriBadge
             DandoriBadge("Test Badge")

@@ -56,10 +56,8 @@ struct DandoriComponentsPreview: View {
                         DandoriTextField(
                             text: .constant(""),
                             placeholder: "Email",
-                            icon: Image(systemName: "envelope"),
                             variant: .filled,
-                            size: .medium,
-                            helperText: "Digite seu email"
+                            size: .medium
                         )
                     }
                 }
@@ -73,17 +71,6 @@ struct DandoriComponentsPreview: View {
                         options: ["Agora", "Próximas", "Todas"],
                         variant: .default
                     )
-                }
-                
-                // Chips
-                VStack(spacing: 16) {
-                    Text("Chips").font(.title2.weight(.semibold))
-                    
-                    HStack(spacing: 12) {
-                        DandoriChip(text: "Accent", variant: .accent, size: .medium)
-                        DandoriChip(text: "Neutral", variant: .neutral, size: .medium)
-                        DandoriChip(text: "Outlined", variant: .outlined, size: .medium)
-                    }
                 }
                 
                 // Badges
@@ -121,6 +108,31 @@ struct DandoriComponentsPreview: View {
                         DandoriCard(variant: .elevated, size: .standard) {
                             cardContent(title: "Elevated Card", subtitle: "Com sombra")
                         }
+                    }
+                }
+                
+                // Task Card Example
+                VStack(spacing: 16) {
+                    Text("Task Card").font(.title2.weight(.semibold))
+                    
+                    DandoriTaskCard(
+                        badgeText: "Agora",
+                        title: "Implementar Design System",
+                        duration: "3",
+                        chips: [
+                            DandoriBadgeModel(text: "Trabalho", variant: .filled),
+                            DandoriBadgeModel(text: "Urgente", variant: .accent)
+                        ],
+                        isFlashing: false
+                    ) {
+                        // onDone
+                        toastManager.show(message: "Tarefa concluída!", variant: .success)
+                    } onSkip: {
+                        // onSkip
+                        toastManager.show(message: "Tarefa pulada", variant: .info)
+                    } onReplan: {
+                        // onReplan
+                        toastManager.show(message: "Tarefa replanejada", variant: .warning)
                     }
                 }
                 

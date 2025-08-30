@@ -2,8 +2,9 @@ import SwiftUI
 
 // MARK: - DandoriCard Component
 
-/// Card component seguindo as diretrizes do Design System Dandori
+/// Generic card component seguindo as diretrizes do Design System Dandori
 /// Implementa visual alinhado com a versão web usando tokens atualizados
+/// Serve como base para todos os tipos de cards específicos
 struct DandoriCard<Content: View>: View {
     let variant: DandoriCardVariant
     let size: DandoriCardSize
@@ -34,35 +35,6 @@ struct DandoriCard<Content: View>: View {
                 x: 0,
                 y: layout.shadowY
             )
-    }
-}
-
-// MARK: - Specialized Card Components
-
-// Card para tarefas
-struct DandoriTaskCard<Content: View>: View {
-    let content: () -> Content
-    
-    var body: some View {
-        DandoriCard(variant: .default, size: .standard, content: content)
-    }
-}
-
-// Card para planos/fluxos
-struct DandoriPlanCard<Content: View>: View {
-    let content: () -> Content
-    
-    var body: some View {
-        DandoriCard(variant: .default, size: .comfortable, content: content)
-    }
-}
-
-// Card para sumários/destaques
-struct DandoriSummaryCard<Content: View>: View {
-    let content: () -> Content
-    
-    var body: some View {
-        DandoriCard(variant: .elevated, size: .comfortable, content: content)
     }
 }
 
@@ -115,26 +87,6 @@ struct DandoriSummaryCard<Content: View>: View {
                 }
             }
             
-            // Specialized Cards
-            VStack(spacing: 16) {
-                Text("Specialized Cards")
-                    .font(.title2.weight(.semibold))
-                
-                VStack(spacing: 16) {
-                    DandoriTaskCard {
-                        taskCardContent()
-                    }
-                    
-                    DandoriPlanCard {
-                        planCardContent()
-                    }
-                    
-                    DandoriSummaryCard {
-                        summaryCardContent()
-                    }
-                }
-            }
-            
             // Environment Override
             VStack(spacing: 16) {
                 Text("Environment Override")
@@ -162,104 +114,6 @@ private func cardContent(title: String, subtitle: String) -> some View {
         Text(subtitle)
             .font(DSTokens.Typography.bodyMedium.font)
             .foregroundColor(DSTokens.Colors.Content.secondary)
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-}
-
-@ViewBuilder
-private func taskCardContent() -> some View {
-    VStack(alignment: .leading, spacing: 12) {
-        HStack {
-            DandoriBadge("Agora", variant: .accent, size: .small)
-            Spacer()
-            Text("2 min")
-                .font(DSTokens.Typography.caption.font)
-                .foregroundColor(DSTokens.Colors.Content.secondary)
-        }
-        
-        Text("Revisar documentação do projeto")
-            .font(DSTokens.Typography.headingSmall.font)
-            .foregroundColor(DSTokens.Colors.Content.primary)
-        
-        Text("Verificar se todos os requisitos estão sendo atendidos na implementação atual.")
-            .font(DSTokens.Typography.bodyMedium.font)
-            .foregroundColor(DSTokens.Colors.Content.secondary)
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-}
-
-@ViewBuilder
-private func planCardContent() -> some View {
-    VStack(alignment: .leading, spacing: 16) {
-        Text("Plano de Desenvolvimento")
-            .font(DSTokens.Typography.headingMedium.font)
-            .foregroundColor(DSTokens.Colors.Content.primary)
-        
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(DSTokens.Colors.Accent.sage.base)
-                Text("Definir arquitetura")
-                    .font(DSTokens.Typography.bodyMedium.font)
-                Spacer()
-            }
-            
-            HStack {
-                Image(systemName: "circle")
-                    .foregroundColor(DSTokens.Colors.Content.secondary)
-                Text("Implementar componentes")
-                    .font(DSTokens.Typography.bodyMedium.font)
-                Spacer()
-            }
-            
-            HStack {
-                Image(systemName: "circle")
-                    .foregroundColor(DSTokens.Colors.Content.secondary)
-                Text("Testes e validação")
-                    .font(DSTokens.Typography.bodyMedium.font)
-                Spacer()
-            }
-        }
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-}
-
-@ViewBuilder
-private func summaryCardContent() -> some View {
-    VStack(alignment: .leading, spacing: 16) {
-        HStack {
-            Text("Resumo do Dia")
-                .font(DSTokens.Typography.headingMedium.font)
-                .foregroundColor(DSTokens.Colors.Content.primary)
-            
-            Spacer()
-            
-            Image(systemName: "chart.line.uptrend.xyaxis")
-                .font(.title2)
-                .foregroundColor(DSTokens.Colors.Accent.teal.base)
-        }
-        
-        HStack(spacing: 24) {
-            VStack {
-                Text("12")
-                    .font(DSTokens.Typography.headingLarge.font)
-                    .foregroundColor(DSTokens.Colors.Content.primary)
-                Text("Tarefas")
-                    .font(DSTokens.Typography.bodySmall.font)
-                    .foregroundColor(DSTokens.Colors.Content.secondary)
-            }
-            
-            VStack {
-                Text("3h 45m")
-                    .font(DSTokens.Typography.headingLarge.font)
-                    .foregroundColor(DSTokens.Colors.Content.primary)
-                Text("Focado")
-                    .font(DSTokens.Typography.bodySmall.font)
-                    .foregroundColor(DSTokens.Colors.Content.secondary)
-            }
-            
-            Spacer()
-        }
     }
     .frame(maxWidth: .infinity, alignment: .leading)
 }

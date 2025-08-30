@@ -46,11 +46,11 @@ struct DandoriSegmentedLayout {
     }
     
     var horizontalPadding: CGFloat {
-        DSTokens.Spacing.componentSM
+        DSTokens.Spacing.componentMD  // Increased from componentSM for better touch targets
     }
     
     var verticalPadding: CGFloat {
-        DSTokens.Spacing.elementMD
+        DSTokens.Spacing.elementLG  // Increased from elementMD for better visual balance
     }
     
     var typography: TypographyToken {
