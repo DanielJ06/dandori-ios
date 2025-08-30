@@ -2,18 +2,46 @@ import SwiftUI
 
 // MARK: - DandoriToast Component
 
-/// Toast component seguindo as diretrizes do Design System Dandori
-/// Implementa visual alinhado com a versão web usando tokens atualizados
+/**
+ * A customizable toast notification component that follows Dandori Design System guidelines.
+ * 
+ * This component provides a clean, accessible toast interface for displaying
+ * temporary messages with various visual styles and optional actions.
+ *
+ * ## Usage
+ * ```swift
+ * DandoriToast(
+ *     message: "Operation completed successfully!",
+ *     variant: .success,
+ *     icon: Image(systemName: "checkmark.circle")
+ * )
+ * ```
+ *
+ * ## Features
+ * - Multiple visual variants (info, success, warning, error)
+ * - Optional icon support
+ * - Optional close action
+ * - Environment-based appearance override
+ * - Consistent styling and spacing
+ * - Shadow and border support
+ * - Accessibility support
+ *
+ * - Parameters:
+ *   - message: The toast message text
+ *   - variant: Visual style variant
+ *   - icon: Optional icon to display
+ *   - action: Optional closure for close action
+ */
 struct DandoriToast: View {
     let message: String
     let variant: DandoriToastVariant
     let icon: Image?
     let action: (() -> Void)?
     
-    @Environment(\.dandoriToastAppearance) private var envVariant
+    @Environment(\.dandoriToastVariant) private var envVariant
     
     private var layout: DandoriToastLayout {
-        DandoriToastLayout(variant: envVariant ?? variant)
+        DandoriToastLayout(variant: envVariant)
     }
     
     var body: some View {
@@ -26,7 +54,7 @@ struct DandoriToast: View {
             
             Text(message)
                 .font(layout.typography.font)
-                .foregroundColor(layout.foregroundColor)
+                .foregroundColor(layout.textColor)
                 .multilineTextAlignment(.leading)
             
             Spacer()
@@ -56,10 +84,25 @@ struct DandoriToast: View {
 
 // MARK: - Toast Manager
 
+/**
+ * A manager class for handling toast notifications throughout the app.
+ * 
+ * This class provides methods to show and dismiss toast notifications
+ * with automatic timing and animation support.
+ */
 @MainActor
 class DandoriToastManager: ObservableObject {
     @Published var toast: DandoriToastData?
     
+    /**
+     * Shows a toast notification with the specified parameters.
+     *
+     * - Parameters:
+     *   - message: The toast message text
+     *   - variant: Visual style variant (default: .info)
+     *   - icon: Optional icon to display
+     *   - duration: How long to show the toast (default: 3.0 seconds)
+     */
     func show(
         message: String,
         variant: DandoriToastVariant = .info,
@@ -77,6 +120,9 @@ class DandoriToastManager: ObservableObject {
         }
     }
     
+    /**
+     * Dismisses the current toast notification with animation.
+     */
     func dismiss() {
         withAnimation(.easeInOut(duration: 0.3)) {
             toast = nil
@@ -84,6 +130,14 @@ class DandoriToastManager: ObservableObject {
     }
 }
 
+/**
+ * Data structure for toast notification content.
+ *
+ * - Parameters:
+ *   - message: The toast message text
+ *   - variant: Visual style variant
+ *   - icon: Optional icon to display
+ */
 struct DandoriToastData {
     let message: String
     let variant: DandoriToastVariant
@@ -92,6 +146,12 @@ struct DandoriToastData {
 
 // MARK: - Toast View Modifier
 
+/**
+ * A view modifier that adds toast notification support to any view.
+ *
+ * - Parameters:
+ *   - toastManager: The toast manager instance to use
+ */
 struct DandoriToastViewModifier: ViewModifier {
     @ObservedObject var toastManager: DandoriToastManager
     
@@ -122,6 +182,13 @@ struct DandoriToastViewModifier: ViewModifier {
 }
 
 extension View {
+    /**
+     * Adds toast notification support to the view.
+     *
+     * - Parameters:
+     *   - manager: The toast manager instance to use
+     * - Returns: A view with toast notification support
+     */
     func dandoriToast(manager: DandoriToastManager) -> some View {
         modifier(DandoriToastViewModifier(toastManager: manager))
     }

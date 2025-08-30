@@ -2,56 +2,68 @@ import SwiftUI
 
 // MARK: - DandoriButton Component
 
-/// Button component seguindo as diretrizes do Design System Dandori
-/// Implementa visual alinhado com a versão web usando tokens atualizados
+/**
+ * A customizable button component that follows Dandori Design System guidelines.
+ * 
+ * This component provides multiple variants, sizes, and states while maintaining
+ * consistent visual design and accessibility standards.
+ *
+ * ## Usage
+ * ```swift
+ * DandoriButton("Click me", variant: .primary) {
+ *     // Action here
+ * }
+ * ```
+ *
+ * ## Features
+ * - Multiple visual variants (primary, secondary, tertiary, ghost)
+ * - Different sizes (small, medium, large, fullWidth)
+ * - Various states (enabled, disabled, loading)
+ * - Icon support with automatic sizing
+ * - Environment-based appearance override
+ * - Accessibility support
+ *
+ * - Parameters:
+ *   - title: The button's text label
+ *   - icon: Optional icon to display alongside the text
+ *   - variant: Visual style variant (default: .primary)
+ *   - size: Button size (default: .medium)
+ *   - state: Current button state (default: .enabled)
+ *   - action: Closure executed when button is tapped
+ */
 struct DandoriButton: View {
     let title: String
     let icon: Image?
-    let variant: DandoriButtonVariant
-    let size: DandoriButtonSize
-    let state: DandoriButtonState
     let action: () -> Void
     
-    // Convenience initializers
+    // Environment values with defaults
+    @Environment(\.dandoriButtonVariant) private var envVariant
+    @Environment(\.dandoriButtonSize) private var envSize
+    @Environment(\.dandoriButtonState) private var envState
+    
+    /**
+     * Creates a new DandoriButton with the specified parameters.
+     *
+     * - Parameters:
+     *   - title: The button's text label
+     *   - icon: Optional icon to display alongside the text
+     *   - action: Closure executed when button is tapped
+     */
     init(
         _ title: String,
         icon: Image? = nil,
-        variant: DandoriButtonVariant = .primary,
-        size: DandoriButtonSize = .medium,
-        state: DandoriButtonState = .enabled,
-        action: @escaping () -> Void = {}
+        action: @escaping () -> Void
     ) {
         self.title = title
         self.icon = icon
-        self.variant = variant
-        self.size = size
-        self.state = state
         self.action = action
     }
-    
-    init(
-        title: String,
-        icon: Image? = nil,
-        variant: DandoriButtonVariant,
-        size: DandoriButtonSize = .medium,
-        state: DandoriButtonState = .enabled,
-        action: @escaping () -> Void = {}
-    ) {
-        self.title = title
-        self.icon = icon
-        self.variant = variant
-        self.size = size
-        self.state = state
-        self.action = action
-    }
-    
-    @Environment(\.dandoriButtonAppearance) private var envVariant
     
     private var layout: DandoriButtonLayout {
         DandoriButtonLayout(
-            variant: envVariant ?? variant,
-            size: size,
-            state: state
+            variant: envVariant,
+            size: envSize,
+            state: envState
         )
     }
     
@@ -64,7 +76,7 @@ struct DandoriButton: View {
                         .foregroundColor(layout.foregroundColor)
                 }
                 
-                if state == .loading {
+                if envState == .loading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: layout.foregroundColor))
                         .scaleEffect(0.8)
@@ -76,7 +88,7 @@ struct DandoriButton: View {
             }
             .padding(.horizontal, layout.horizontalPadding)
             .padding(.vertical, layout.verticalPadding)
-            .frame(maxWidth: size == .fullWidth ? .infinity : nil)
+            .frame(maxWidth: envSize == .fullWidth ? .infinity : nil)
             .frame(minHeight: layout.minHeight)
         }
         .background(layout.backgroundColor)
@@ -85,7 +97,7 @@ struct DandoriButton: View {
                 .stroke(layout.borderColor, lineWidth: layout.borderWidth)
         )
         .clipShape(RoundedRectangle(cornerRadius: layout.cornerRadius))
-        .disabled(state == .disabled || state == .loading)
+        .disabled(envState == .disabled || envState == .loading)
         .buttonStyle(.plain)
         .accessibilityLabel(Text(title))
         .accessibilityAddTraits(.isButton)
@@ -103,10 +115,13 @@ struct DandoriButton: View {
                     .font(.title2.weight(.semibold))
                 
                 VStack(spacing: 12) {
-                    DandoriButton("Primary Button", variant: .primary) {}
-                    DandoriButton("Secondary Button", variant: .secondary) {}
-                    DandoriButton("Tertiary Button", variant: .tertiary) {}
-                    DandoriButton("Ghost Button", variant: .ghost) {}
+                    DandoriButton("Primary Button") {}
+                    DandoriButton("Secondary Button") {}
+                        .dandoriButtonVariant(.secondary)
+                    DandoriButton("Tertiary Button") {}
+                        .dandoriButtonVariant(.tertiary)
+                    DandoriButton("Ghost Button") {}
+                        .dandoriButtonVariant(.ghost)
                 }
             }
             
@@ -116,10 +131,13 @@ struct DandoriButton: View {
                     .font(.title2.weight(.semibold))
                 
                 VStack(spacing: 12) {
-                    DandoriButton("Small", variant: .primary, size: .small) {}
-                    DandoriButton("Medium", variant: .primary, size: .medium) {}
-                    DandoriButton("Large", variant: .primary, size: .large) {}
-                    DandoriButton("Full Width", variant: .primary, size: .fullWidth) {}
+                    DandoriButton("Small") {}
+                        .dandoriButtonSize(.small)
+                    DandoriButton("Medium") {}
+                    DandoriButton("Large") {}
+                        .dandoriButtonSize(.large)
+                    DandoriButton("Full Width") {}
+                        .dandoriButtonSize(.fullWidth)
                 }
             }
             
@@ -131,21 +149,20 @@ struct DandoriButton: View {
                 VStack(spacing: 12) {
                     DandoriButton(
                         "Add Item",
-                        icon: Image(systemName: "plus"),
-                        variant: .primary
+                        icon: Image(systemName: "plus")
                     ) {}
                     
                     DandoriButton(
                         "Edit",
-                        icon: Image(systemName: "pencil"),
-                        variant: .secondary
+                        icon: Image(systemName: "pencil")
                     ) {}
+                        .dandoriButtonVariant(.secondary)
                     
                     DandoriButton(
                         "Delete",
-                        icon: Image(systemName: "trash"),
-                        variant: .ghost
+                        icon: Image(systemName: "trash")
                     ) {}
+                        .dandoriButtonVariant(.ghost)
                 }
             }
             
@@ -155,29 +172,11 @@ struct DandoriButton: View {
                     .font(.title2.weight(.semibold))
                 
                 VStack(spacing: 12) {
-                    DandoriButton(
-                        title: "Enabled",
-                        icon: nil,
-                        variant: .primary,
-                        size: .medium,
-                        state: .enabled
-                    ) {}
-                    
-                    DandoriButton(
-                        title: "Disabled",
-                        icon: nil,
-                        variant: .primary,
-                        size: .medium,
-                        state: .disabled
-                    ) {}
-                    
-                    DandoriButton(
-                        title: "Loading",
-                        icon: nil,
-                        variant: .primary,
-                        size: .medium,
-                        state: .loading
-                    ) {}
+                    DandoriButton("Enabled") {}
+                    DandoriButton("Disabled") {}
+                        .dandoriButtonState(.disabled)
+                    DandoriButton("Loading") {}
+                        .dandoriButtonState(.loading)
                 }
             }
             
@@ -188,9 +187,9 @@ struct DandoriButton: View {
                 
                 VStack(spacing: 12) {
                     DandoriButton("Default Primary") {}
-                    DandoriButton("Override to Secondary", variant: .primary) {}
+                    DandoriButton("Override to Secondary") {}
                 }
-                .dandoriButtonAppearance(.secondary)
+                .dandoriButtonVariant(.secondary)
             }
         }
         .padding()

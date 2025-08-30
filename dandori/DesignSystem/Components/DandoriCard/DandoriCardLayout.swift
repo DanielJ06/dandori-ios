@@ -9,20 +9,20 @@ struct DandoriCardLayout {
     var backgroundColor: Color {
         switch variant {
         case .default:
-            return DSTokens.Colors.Surface.secondary  // #FAF8F5 (bege claro)
+            return DS.Colors.Surface.secondary  // #FAF8F5 (bege claro)
         case .surface:
-            return DSTokens.Colors.Surface.primary    // Branco
+            return DS.Colors.Surface.primary    // Branco
         case .outlined:
             return Color.clear
         case .elevated:
-            return DSTokens.Colors.Surface.primary    // Branco com sombra
+            return DS.Colors.Surface.primary    // Branco com sombra
         }
     }
     
     var borderColor: Color {
         switch variant {
         case .outlined:
-            return DSTokens.Colors.Border.default  // #E3D9CB
+            return DS.Colors.Border.default  // #E3D9CB
         case .default, .surface, .elevated:
             return Color.clear
         }
@@ -76,16 +76,16 @@ struct DandoriCardLayout {
     
     var shadowRadius: CGFloat {
         switch variant {
-        case .elevated: return 12
-        case .default, .surface: return 4
+        case .elevated: return DSTokens.Dimensions.shadowRadiusLarge
+        case .default, .surface: return DSTokens.Dimensions.shadowRadiusSmall
         case .outlined: return 0
         }
     }
     
     var shadowY: CGFloat {
         switch variant {
-        case .elevated: return 4
-        case .default, .surface: return 2
+        case .elevated: return DSTokens.Dimensions.shadowYMedium
+        case .default, .surface: return DSTokens.Dimensions.shadowYSmall
         case .outlined: return 0
         }
     }

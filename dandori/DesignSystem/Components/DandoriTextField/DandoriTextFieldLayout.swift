@@ -11,62 +11,62 @@ struct DandoriTextFieldLayout {
     var backgroundColor: Color {
         switch (variant, state) {
         case (_, .disabled):
-            return DSTokens.Colors.Surface.secondary.opacity(0.5)
-        case (.default, _), (.outlined, _):
-            return DSTokens.Colors.Surface.primary  // Fundo branco
-        case (.filled, _):
-            return DSTokens.Colors.Surface.secondary  // Fundo bege claro
+            return DS.Colors.Surface.secondary.opacity(0.5)
+        case (.filled, _), (.default, _):
+            return DS.Colors.Surface.primary  // Fundo branco
+        case (.outlined, _):
+            return DS.Colors.Surface.secondary  // Fundo bege claro
         }
     }
     
     var borderColor: Color {
         switch state {
         case .focused:
-            return DSTokens.Colors.Accent.teal.base
+            return DS.Colors.Accent.base
         case .error:
             return Color.red
         case .disabled:
-            return DSTokens.Colors.Border.default.opacity(0.5)
+            return DS.Colors.Border.default.opacity(0.5)
         case .normal:
-            return DSTokens.Colors.Border.default  // #E3D9CB
+            return DS.Colors.Border.default  // #E3D9CB
         }
     }
     
     var borderWidth: CGFloat {
         switch state {
         case .focused:
-            return 2
+            return DSTokens.Dimensions.borderWidthThick
         case .error:
-            return 2
+            return DSTokens.Dimensions.borderWidthThick
         case .normal, .disabled:
-            return 1
+            return DSTokens.Dimensions.borderWidthThin
         }
     }
     
     var textColor: Color {
         switch state {
         case .disabled:
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         case .normal, .focused, .error:
-            return DSTokens.Colors.Content.primary  // #1C1B1A
+            return DS.Colors.Content.primary  // #1C1B1A
         }
     }
     
     var iconColor: Color {
         switch state {
         case .focused:
-            return DSTokens.Colors.Accent.teal.base
+            return DS.Colors.Accent.base
         case .error:
             return Color.red
         case .disabled:
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         case .normal:
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         }
     }
     
     var helperTextColor: Color {
-        DSTokens.Colors.Content.secondary
+        DS.Colors.Content.secondary
     }
     
     var errorTextColor: Color {
@@ -99,15 +99,15 @@ struct DandoriTextFieldLayout {
     var minHeight: CGFloat {
         // Garantir área touch-friendly ≥44px
         switch size {
-        case .medium: return 44
-        case .large: return 52
+        case .medium: return DSTokens.Dimensions.touchTargetMedium
+        case .large: return DSTokens.Dimensions.touchTargetLarge
         }
     }
     
     var iconSize: CGFloat {
         switch size {
-        case .medium: return 16
-        case .large: return 18
+        case .medium: return DSTokens.Dimensions.iconSizeMedium
+        case .large: return DSTokens.Dimensions.iconSizeLarge
         }
     }
     

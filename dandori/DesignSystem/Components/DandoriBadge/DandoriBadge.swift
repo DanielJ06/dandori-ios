@@ -2,20 +2,43 @@ import SwiftUI
 
 // MARK: - DandoriBadge Component
 
-/// Badge/Label component seguindo as diretrizes do Design System Dandori
-/// Implementa visual alinhado com a versão web usando tokens atualizados
-/// Unificado para cobrir tanto badges quanto chips (anteriormente separados)
+/**
+ * A flexible badge/label component that follows Dandori Design System guidelines.
+ * 
+ * This component unifies the previous separate badge and chip components into a single,
+ * configurable component that can be used for various labeling purposes.
+ *
+ * ## Usage
+ * ```swift
+ * DandoriBadge("New", variant: .accent)
+ * DandoriBadge("Star", icon: Image(systemName: "star.fill"), variant: .filled)
+ * ```
+ *
+ * ## Features
+ * - Multiple visual variants (default, filled, accent, status, subtle)
+ * - Different sizes (small, medium, large)
+ * - Optional icon support with automatic sizing
+ * - Environment-based appearance override
+ * - Accessibility support
+ * - Specialized badge types for common use cases
+ *
+ * - Parameters:
+ *   - text: The badge's text label
+ *   - variant: Visual style variant (default: .default)
+ *   - size: Badge size (default: .medium)
+ *   - icon: Optional icon to display alongside the text
+ */
 struct DandoriBadge: View {
     let text: String
     let variant: DandoriBadgeVariant
     let size: DandoriBadgeSize
     let icon: Image?
     
-    @Environment(\.dandoriBadgeAppearance) private var envVariant
+    @Environment(\.dandoriBadgeVariant) private var envVariant
     
     private var layout: DandoriBadgeLayout {
         DandoriBadgeLayout(
-            variant: envVariant ?? variant,
+            variant: envVariant,
             size: size
         )
     }
@@ -25,12 +48,12 @@ struct DandoriBadge: View {
             if let icon = icon {
                 icon
                     .font(.system(size: layout.iconSize, weight: .medium))
-                    .foregroundColor(layout.foregroundColor)
+                    .foregroundColor(layout.textColor)
             }
             
             Text(text)
                 .font(layout.typography.font)
-                .foregroundColor(layout.foregroundColor)
+                .foregroundColor(layout.textColor)
         }
         .padding(.horizontal, layout.horizontalPadding)
         .padding(.vertical, layout.verticalPadding)
@@ -48,7 +71,14 @@ struct DandoriBadge: View {
 // MARK: - Convenience Initializers
 
 extension DandoriBadge {
-    /// Cria um badge simples apenas com texto
+    /**
+     * Creates a badge with just text.
+     *
+     * - Parameters:
+     *   - text: The badge's text label
+     *   - variant: Visual style variant (default: .default)
+     *   - size: Badge size (default: .medium)
+     */
     init(
         _ text: String,
         variant: DandoriBadgeVariant = .default,
@@ -60,7 +90,15 @@ extension DandoriBadge {
         self.icon = nil
     }
     
-    /// Cria um badge com texto e ícone
+    /**
+     * Creates a badge with text and icon.
+     *
+     * - Parameters:
+     *   - text: The badge's text label
+     *   - icon: Icon to display alongside the text
+     *   - variant: Visual style variant (default: .default)
+     *   - size: Badge size (default: .medium)
+     */
     init(
         _ text: String,
         icon: Image,
@@ -146,6 +184,13 @@ extension DandoriBadge {
 
 // MARK: - Specialized Badge Components
 
+/**
+ * A specialized badge component for displaying time-related information.
+ *
+ * - Parameters:
+ *   - text: The time text to display
+ *   - isActive: Whether the time period is currently active
+ */
 struct DandoriTimeBadge: View {
     let text: String
     let isActive: Bool
@@ -159,6 +204,12 @@ struct DandoriTimeBadge: View {
     }
 }
 
+/**
+ * A specialized badge component for displaying status information.
+ *
+ * - Parameters:
+ *   - status: The status type to display
+ */
 struct DandoriStatusBadge: View {
     let status: StatusType
     
@@ -197,6 +248,13 @@ struct DandoriStatusBadge: View {
     }
 }
 
+/**
+ * A specialized badge component for displaying category information.
+ *
+ * - Parameters:
+ *   - category: The category name to display
+ *   - color: The color scheme to use for the category
+ */
 struct DandoriCategoryBadge: View {
     let category: String
     let color: CategoryColor

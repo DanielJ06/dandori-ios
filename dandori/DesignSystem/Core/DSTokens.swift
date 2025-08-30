@@ -1,227 +1,71 @@
 import SwiftUI
 
-/// Tokens semânticos do Design System
-/// Mapeia tokens primitivos para contextos de uso específicos
+/**
+ * Semantic tokens for the Design System.
+ * 
+ * Maps primitive tokens to specific usage contexts, providing semantic meaning
+ * to design values throughout the application.
+ *
+ * ## Usage
+ * ```swift
+ * // Colors
+ * Color(DSTokens.Colors.Surface.primary)
+ * Color(DSTokens.Colors.Accent.base)
+ * 
+ * // Spacing
+ * .padding(DSTokens.Spacing.componentMD)
+ * 
+ * // Typography
+ * .font(DSTokens.Typography.headingLarge.font)
+ * ```
+ *
+ * ## Features
+ * - Semantic color mapping
+ * - Consistent spacing system
+ * - Typography scale
+ * - Radius values
+ * - Dark mode support
+ * - Accent color system
+ */
 struct DSTokens {
     
     // MARK: - Semantic Colors
-    struct Colors {
-        
-        struct Surface {
-            static let primary = DSFoundation.ColorPrimitives.white
-            static let secondary = DSFoundation.ColorPrimitives.gray50
-            static let tertiary = DSFoundation.ColorPrimitives.gray100
-            static let beigeAlt = DSFoundation.ColorPrimitives.gray100 // New token for beige alternative
-            
-            // Dark mode variants
-            static let primaryDark = DSFoundation.ColorPrimitives.gray900
-            static let secondaryDark = DSFoundation.ColorPrimitives.gray700
-            static let tertiaryDark = DSFoundation.ColorPrimitives.gray400
-        }
-        
-        struct Content {
-            static let primary = DSFoundation.ColorPrimitives.gray900
-            static let secondary = DSFoundation.ColorPrimitives.gray400
-            static let inverse = DSFoundation.ColorPrimitives.white
-            
-            // Dark mode variants
-            static let primaryDark = DSFoundation.ColorPrimitives.white
-            static let secondaryDark = DSFoundation.ColorPrimitives.gray200 // Melhor contraste
-            static let inverseDark = DSFoundation.ColorPrimitives.gray900
-        }
-        
-        struct Border {
-            static let `default` = DSFoundation.ColorPrimitives.gray200 // Usando tom intermediário
-            static let focus = DSFoundation.ColorPrimitives.gray400
-            
-            // Dark mode variants
-            static let defaultDark = DSFoundation.ColorPrimitives.gray700
-            static let focusDark = DSFoundation.ColorPrimitives.gray400
-        }
-        
-        struct Interactive {
-            static let primary = DSFoundation.ColorPrimitives.teal400
-            static let primaryHover = DSFoundation.ColorPrimitives.teal900
-            static let secondary = DSFoundation.ColorPrimitives.gray100
-            static let secondaryHover = DSFoundation.ColorPrimitives.gray400
-        }
-        
-        struct Accent {
-            static let teal = AccentColorToken(
-                base: DSFoundation.ColorPrimitives.teal400,
-                light: DSFoundation.ColorPrimitives.teal50,
-                text: DSFoundation.ColorPrimitives.teal900
-            )
-            
-            static let sage = AccentColorToken(
-                base: DSFoundation.ColorPrimitives.sage400,
-                light: DSFoundation.ColorPrimitives.sage50,
-                text: DSFoundation.ColorPrimitives.sage900
-            )
-            
-            static let turquoise = AccentColorToken(
-                base: DSFoundation.ColorPrimitives.turquoise400,
-                light: DSFoundation.ColorPrimitives.turquoise50,
-                text: DSFoundation.ColorPrimitives.turquoise900
-            )
-        }
-    }
+    
+    /**
+     * Semantic color tokens organized by usage context.
+     * Provides meaningful color names that map to primitive values.
+     */
+    typealias Colors = DSTokensColors
     
     // MARK: - Semantic Spacing
-    struct Spacing {
-        // Element spacing
-        static let elementXS = DSFoundation.SpacingPrimitives.space2
-        static let elementSM = DSFoundation.SpacingPrimitives.space4
-        static let elementMD = DSFoundation.SpacingPrimitives.space8
-        static let elementLG = DSFoundation.SpacingPrimitives.space12
-        static let elementXL = DSFoundation.SpacingPrimitives.space16
-        
-        // Component spacing - Adjusted for better web alignment
-        static let componentSM = DSFoundation.SpacingPrimitives.space8
-        static let componentMD: CGFloat = 18 // Increased from 16 to better match web proportions
-        static let componentLG = DSFoundation.SpacingPrimitives.space24
-        static let componentXL = DSFoundation.SpacingPrimitives.space32
-        
-        // Layout spacing
-        static let layoutMD = DSFoundation.SpacingPrimitives.space64
-        static let layoutLG = DSFoundation.SpacingPrimitives.space80
-    }
+    
+    /**
+     * Semantic spacing tokens organized by scale level.
+     * Provides consistent spacing values for elements, components, and layouts.
+     */
+    typealias Spacing = DSTokensSpacing
     
     // MARK: - Semantic Radius
-    struct Radius {
-        static let small = DSFoundation.RadiusPrimitives.radius6
-        static let medium = DSFoundation.RadiusPrimitives.radius8
-        static let large = DSFoundation.RadiusPrimitives.radius16
-        static let extraLarge = DSFoundation.RadiusPrimitives.radius24 // Added for cards and larger components
-        static let full = DSFoundation.RadiusPrimitives.radiusFull
-    }
+    
+    /**
+     * Semantic radius tokens for consistent corner rounding.
+     * Provides radius values for various UI element sizes.
+     */
+    typealias Radius = DSTokensRadius
     
     // MARK: - Semantic Typography
-    struct Typography {
-        // Display text
-        static let displayXL = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyMerriweather,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize36,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.2
-        )
-        
-        static let display = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyMerriweather,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize30,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.2
-        )
-        
-        // Headings
-        static let headingLarge = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyMerriweather,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize24,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.3
-        )
-        
-        static let headingMedium = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyMerriweather,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize20,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.3
-        )
-        
-        static let headingSmall = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyMerriweather,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize18,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.4
-        )
-        
-        // Body text
-        static let bodyLarge = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize16,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.5
-        )
-        
-        static let bodyMedium = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize14,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.5
-        )
-        
-        static let bodySmall = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize12,
-            fontWeight: DSFoundation.TypographyPrimitives.weightRegular,
-            lineHeight: 1.4
-        )
-        
-        // UI elements
-        static let button = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize14,
-            fontWeight: DSFoundation.TypographyPrimitives.weightMedium,
-            lineHeight: 1.2
-        )
-        
-        static let label = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize12,
-            fontWeight: DSFoundation.TypographyPrimitives.weightMedium,
-            lineHeight: 1.2
-        )
-        
-        static let caption = TypographyToken(
-            fontFamily: DSFoundation.TypographyPrimitives.fontFamilyInter,
-            fontSize: DSFoundation.TypographyPrimitives.fontSize11,
-            fontWeight: DSFoundation.TypographyPrimitives.weightMedium,
-            lineHeight: 1.2
-        )
-    }
-}
-
-// MARK: - Supporting Types
-
-struct AccentColorToken {
-    let base: Color
-    let light: Color
-    let text: Color
-}
-
-struct TypographyToken {
-    let fontFamily: String
-    let fontSize: CGFloat
-    let fontWeight: Font.Weight
-    let lineHeight: CGFloat
     
-    var font: Font {
-        // Para Inter, usa o nome da família e deixa o iOS gerenciar os pesos
-        if fontFamily == "Inter" {
-            return Font.custom("Inter", size: fontSize).weight(fontWeight)
-        }
-        // Para Merriweather, usa nomes específicos baseados no peso
-        else if fontFamily == "Merriweather-Regular" {
-            let fontName = getFontName(fontFamily: fontFamily, weight: fontWeight)
-            return Font.custom(fontName, size: fontSize)
-        }
-        // Fallback
-        else {
-            return Font.custom(fontFamily, size: fontSize).weight(fontWeight)
-        }
-    }
+    /**
+     * Semantic typography tokens for consistent text styling.
+     * Provides font families, sizes, weights, and line heights.
+     */
+    typealias Typography = DSTokensTypography
     
-    private func getFontName(fontFamily: String, weight: Font.Weight) -> String {
-        switch fontFamily {
-        case "Merriweather-Regular":
-            switch weight {
-            case .bold:
-                return "Merriweather-Bold"
-            default:
-                return "Merriweather-Regular"
-            }
-        default:
-            return fontFamily
-        }
-    }
+    // MARK: - Semantic Dimensions
+    
+    /**
+     * Semantic dimension tokens for consistent sizing.
+     * Provides height, icon size, and other dimensional values.
+     */
+    typealias Dimensions = DSTokensDimensions
 }

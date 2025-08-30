@@ -5,9 +5,43 @@ typealias DandoriTaskCard = DandoriTaskCardComponent
 
 // MARK: - DandoriTaskCardComponent Component
 
-/// TaskCard component seguindo as diretrizes do Design System Dandori
-/// Implementa visual editorial com badge dinâmica, alinhado com a versão web
-/// Usa o DandoriCard genérico como base para consistência visual
+/**
+ * A specialized task card component that follows Dandori Design System guidelines.
+ * 
+ * This component displays task information in an editorial layout with dynamic badges,
+ * duration indicators, and action buttons. It uses the generic DandoriCard as its base
+ * for consistent visual styling.
+ *
+ * ## Usage
+ * ```swift
+ * DandoriTaskCardComponent(
+ *     badgeText: "Now",
+ *     title: "Review monthly report",
+ *     duration: "30",
+ *     chips: [
+ *         DandoriBadgeModel(text: "Work", variant: .accent),
+ *         DandoriBadgeModel(text: "Urgent", variant: .default)
+ *     ],
+ *     onDone: { /* handle completion */ },
+ *     onSkip: { /* handle skip */ },
+ *     onReplan: { /* handle replan */ }
+ * )
+ * ```
+ *
+ * ## Features
+ * - Dynamic badge support (optional)
+ * - Task title and duration display
+ * - Configurable chip/badge tags
+ * - Action buttons (Complete, Skip, Replan)
+ * - Flashing state for attention
+ * - Environment-based appearance override
+ * - Accessibility support
+ * - Empty state handling
+ *
+ * - Parameters:
+ *   - model: Task card data model
+ *   - actions: Action handlers for task operations
+ */
 struct DandoriTaskCardComponent: View {
     let model: DandoriTaskCardModel
     let actions: DandoriTaskCardActions
@@ -27,7 +61,7 @@ struct DandoriTaskCardComponent: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: DSTokens.Radius.extraLarge)
-                    .stroke(DSTokens.Colors.Accent.teal.base, lineWidth: isFlashing ? 2 : 0)
+                    .stroke(DS.Colors.Accent.base, lineWidth: isFlashing ? 2 : 0)
             )
             
             if let badgeText = model.badgeText {
@@ -57,7 +91,7 @@ struct DandoriTaskCardComponent: View {
             HStack(alignment: .center, spacing: DSTokens.Spacing.elementMD) {
                 Text(title)
                     .font(DSTokens.Typography.headingSmall.font)
-                    .foregroundColor(DSTokens.Colors.Content.primary)
+                    .foregroundColor(DS.Colors.Content.primary)
                     .accessibilityLabel(Text(title))
                     .multilineTextAlignment(.leading)
                 
@@ -66,7 +100,7 @@ struct DandoriTaskCardComponent: View {
                 if let duration = model.duration {
                     DandoriBadge(
                         "\(duration)m",
-                        icon: Image.init(systemName: "timer"),
+                        icon: Image(systemName: "timer"),
                         variant: .filled,
                         size: .medium
                     )
@@ -89,26 +123,17 @@ struct DandoriTaskCardComponent: View {
             
             // Action buttons
             HStack(spacing: DSTokens.Spacing.elementMD) {
-                DandoriButton(
-                    "Concluir",
-                    variant: .primary,
-                    size: .medium,
-                    action: actions.onDone
-                )
+                DandoriButton("Concluir", action: actions.onDone)
+                    .dandoriButtonVariant(.primary)
+                    .dandoriButtonSize(.medium)
                 
-                DandoriButton(
-                    "Pular",
-                    variant: .ghost,
-                    size: .medium,
-                    action: actions.onSkip
-                )
+                DandoriButton("Pular", action: actions.onSkip)
+                    .dandoriButtonVariant(.ghost)
+                    .dandoriButtonSize(.medium)
                 
-                DandoriButton(
-                    "Replanejar",
-                    variant: .secondary,
-                    size: .medium,
-                    action: actions.onReplan
-                )
+                DandoriButton("Replanejar", action: actions.onReplan)
+                    .dandoriButtonVariant(.secondary)
+                    .dandoriButtonSize(.medium)
                 
                 Spacer()
             }
@@ -121,7 +146,7 @@ struct DandoriTaskCardComponent: View {
         VStack {
             Text("Tudo concluído! 🎉")
                 .font(DSTokens.Typography.headingSmall.font)
-                .foregroundColor(DSTokens.Colors.Content.secondary)
+                .foregroundColor(DS.Colors.Content.secondary)
                 .accessibilityIdentifier("taskcard_empty")
                 .multilineTextAlignment(.center)
         }
@@ -132,6 +157,19 @@ struct DandoriTaskCardComponent: View {
 // MARK: - Convenience Initializers
 
 extension DandoriTaskCardComponent {
+    /**
+     * Creates a task card with individual parameters.
+     *
+     * - Parameters:
+     *   - badgeText: Optional badge text to display
+     *   - title: Task title (optional)
+     *   - duration: Task duration in minutes (optional)
+     *   - chips: Array of badge models for categorization
+     *   - isFlashing: Whether the card should flash for attention
+     *   - onDone: Action handler for task completion
+     *   - onSkip: Action handler for task skipping
+     *   - onReplan: Action handler for task replanning
+     */
     init(
         badgeText: String? = nil,
         title: String? = nil,
@@ -156,6 +194,15 @@ extension DandoriTaskCardComponent {
         )
     }
     
+    /**
+     * Creates a task card with a model and action handlers.
+     *
+     * - Parameters:
+     *   - model: Task card data model
+     *   - onDone: Action handler for task completion
+     *   - onSkip: Action handler for task skipping
+     *   - onReplan: Action handler for task replanning
+     */
     init(
         model: DandoriTaskCardModel,
         onDone: @escaping () -> Void = {},

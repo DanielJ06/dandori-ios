@@ -9,53 +9,53 @@ struct DandoriCheckboxLayout {
     
     var backgroundColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Surface.tertiary
+            return DS.Colors.Surface.tertiary
         }
         
         switch variant {
         case .default:
-            return DSTokens.Colors.Surface.primary
+            return DS.Colors.Surface.primary
         case .accent:
-            return DSTokens.Colors.Accent.teal.light
+            return DS.Colors.Accent.light
         }
     }
     
     var borderColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Border.default
+            return DS.Colors.Border.default
         }
         
         switch variant {
         case .default:
-            return DSTokens.Colors.Border.default
+            return DS.Colors.Border.default
         case .accent:
-            return DSTokens.Colors.Accent.teal.base
+            return DS.Colors.Accent.base
         }
     }
     
-    var borderWidth: CGFloat { 1.5 }
+    var borderWidth: CGFloat { DSTokens.Dimensions.borderWidthMedium }
     
     var checkmarkColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         }
         
         switch variant {
         case .default:
-            return DSTokens.Colors.Content.primary
+            return DS.Colors.Content.primary
         case .accent:
-            return DSTokens.Colors.Accent.teal.text
+            return DS.Colors.Accent.text
         }
     }
     
     var checkmarkFont: Font {
         switch size {
         case .small:
-            return .system(size: 10, weight: .semibold)
+            return .system(size: 10, weight: .semibold)  // Muito pequeno para usar token padrão
         case .medium:
-            return .system(size: 12, weight: .semibold)
+            return .system(size: 12, weight: .semibold)  // Muito pequeno para usar token padrão
         case .large:
-            return .system(size: 14, weight: .semibold)
+            return .system(size: DSTokens.Dimensions.iconSizeMedium, weight: .semibold)
         }
     }
     
@@ -72,9 +72,9 @@ struct DandoriCheckboxLayout {
     
     var labelColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         }
-        return DSTokens.Colors.Content.primary
+        return DS.Colors.Content.primary
     }
     
     var labelSpacing: CGFloat {
@@ -102,11 +102,11 @@ struct DandoriCheckboxLayout {
     var checkboxSize: CGFloat {
         switch size {
         case .small:
-            return 16
+            return DSTokens.Dimensions.checkboxSizeSmall
         case .medium:
-            return 20
+            return DSTokens.Dimensions.checkboxSizeMedium
         case .large:
-            return 24
+            return DSTokens.Dimensions.checkboxSizeLarge
         }
     }
     

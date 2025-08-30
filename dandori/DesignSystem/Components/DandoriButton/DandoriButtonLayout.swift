@@ -10,13 +10,13 @@ struct DandoriButtonLayout {
     var backgroundColor: Color {
         switch (variant, state) {
         case (.primary, .enabled), (.primary, .loading):
-            return DSTokens.Colors.Accent.teal.base  // accent.base
+            return DS.Colors.Accent.base  // accent.base
         case (.primary, .disabled):
-            return DSTokens.Colors.Interactive.secondary
+            return DS.Colors.Interactive.secondary
         case (.secondary, _):
-            return DSTokens.Colors.Surface.primary  // Fundo branco
+            return DS.Colors.Surface.primary  // Fundo branco
         case (.tertiary, _):
-            return DSTokens.Colors.Surface.secondary  // Fundo bege claro
+            return DS.Colors.Surface.secondary  // Fundo bege claro
         case (.ghost, _):
             return Color.clear
         }
@@ -25,15 +25,15 @@ struct DandoriButtonLayout {
     var foregroundColor: Color {
         switch (variant, state) {
         case (.primary, .enabled), (.primary, .loading):
-            return DSTokens.Colors.Content.inverse  // content.inverse (branco)
+            return DS.Colors.Content.inverse  // content.inverse (branco)
         case (.primary, .disabled):
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         case (.secondary, _):
-            return DSTokens.Colors.Content.primary  // content.primary
+            return DS.Colors.Content.primary  // content.primary
         case (.tertiary, _):
-            return DSTokens.Colors.Content.primary
+            return DS.Colors.Content.primary
         case (.ghost, _):
-            return DSTokens.Colors.Accent.teal.base
+            return DS.Colors.Accent.base
         }
     }
     
@@ -42,7 +42,7 @@ struct DandoriButtonLayout {
         case .primary:
             return backgroundColor
         case .secondary:
-            return DSTokens.Colors.Border.default  // border.default (#E3D9CB)
+            return DS.Colors.Border.default  // border.default (#E3D9CB)
         case .tertiary:
             return Color.clear
         case .ghost:
@@ -82,17 +82,17 @@ struct DandoriButtonLayout {
     var minHeight: CGFloat {
         // Garantir área de toque ≥44px conforme HIG
         switch size {
-        case .small: return 36
-        case .medium, .fullWidth: return 44
-        case .large: return 52
+        case .small: return DSTokens.Dimensions.touchTargetSmall
+        case .medium, .fullWidth: return DSTokens.Dimensions.touchTargetMedium
+        case .large: return DSTokens.Dimensions.touchTargetLarge
         }
     }
     
     var iconSize: CGFloat {
         switch size {
-        case .small: return 14
-        case .medium, .fullWidth: return 16
-        case .large: return 18
+        case .small: return DSTokens.Dimensions.iconSizeSmall
+        case .medium, .fullWidth: return DSTokens.Dimensions.iconSizeMedium
+        case .large: return DSTokens.Dimensions.iconSizeLarge
         }
     }
     

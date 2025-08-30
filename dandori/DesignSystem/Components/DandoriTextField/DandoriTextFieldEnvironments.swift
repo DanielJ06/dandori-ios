@@ -2,19 +2,48 @@ import SwiftUI
 
 // MARK: - DandoriTextField Environment Support
 
-struct DandoriTextFieldAppearanceKey: EnvironmentKey {
-    static let defaultValue: DandoriTextFieldVariant? = nil
+struct DandoriTextFieldVariantKey: EnvironmentKey {
+    typealias Value = DandoriTextFieldVariant
+    static let defaultValue: DandoriTextFieldVariant = .default
+}
+
+struct DandoriTextFieldSizeKey: EnvironmentKey {
+    typealias Value = DandoriTextFieldSize
+    static let defaultValue: DandoriTextFieldSize = .medium
+}
+
+struct DandoriTextFieldStateKey: EnvironmentKey {
+    typealias Value = DandoriTextFieldState
+    static let defaultValue: DandoriTextFieldState = .normal
 }
 
 extension EnvironmentValues {
-    var dandoriTextFieldAppearance: DandoriTextFieldVariant? {
-        get { self[DandoriTextFieldAppearanceKey.self] }
-        set { self[DandoriTextFieldAppearanceKey.self] = newValue }
+    var dandoriTextFieldVariant: DandoriTextFieldVariant {
+        get { self[DandoriTextFieldVariantKey.self] }
+        set { self[DandoriTextFieldVariantKey.self] = newValue }
+    }
+    
+    var dandoriTextFieldSize: DandoriTextFieldSize {
+        get { self[DandoriTextFieldSizeKey.self] }
+        set { self[DandoriTextFieldSizeKey.self] = newValue }
+    }
+    
+    var dandoriTextFieldState: DandoriTextFieldState {
+        get { self[DandoriTextFieldStateKey.self] }
+        set { self[DandoriTextFieldStateKey.self] = newValue }
     }
 }
 
 extension View {
-    func dandoriTextFieldAppearance(_ variant: DandoriTextFieldVariant) -> some View {
-        environment(\.dandoriTextFieldAppearance, variant)
+    func dandoriTextFieldVariant(_ variant: DandoriTextFieldVariant) -> some View {
+        environment(\.dandoriTextFieldVariant, variant)
+    }
+    
+    func dandoriTextFieldSize(_ size: DandoriTextFieldSize) -> some View {
+        environment(\.dandoriTextFieldSize, size)
+    }
+    
+    func dandoriTextFieldState(_ state: DandoriTextFieldState) -> some View {
+        environment(\.dandoriTextFieldState, state)
     }
 }

@@ -2,8 +2,41 @@ import SwiftUI
 
 // MARK: - DandoriTextField Component
 
-/// TextField component seguindo as diretrizes do Design System Dandori
-/// Implementa visual alinhado com a versão web usando tokens atualizados
+/**
+ * A customizable text input component that follows Dandori Design System guidelines.
+ * 
+ * This component provides various visual styles, sizes, and states while maintaining
+ * consistent design and accessibility standards.
+ *
+ * ## Usage
+ * ```swift
+ * @State private var text = ""
+ * DandoriTextField(
+ *     text: $text,
+ *     placeholder: "Enter text here",
+ *     variant: .default
+ * )
+ * ```
+ *
+ * ## Features
+ * - Multiple visual variants (default, outlined, filled)
+ * - Different sizes (small, medium, large)
+ * - Various states (normal, focused, error, disabled)
+ * - Optional icon support
+ * - Helper and error text support
+ * - Environment-based appearance override
+ * - Accessibility support
+ *
+ * - Parameters:
+ *   - text: Binding to the text value
+ *   - placeholder: Placeholder text when field is empty
+ *   - variant: Visual style variant (default: .default)
+ *   - size: Field size (default: .medium)
+ *   - state: Current field state (default: .normal)
+ *   - icon: Optional icon to display
+ *   - helperText: Optional helper text below the field
+ *   - errorText: Optional error text below the field
+ */
 struct DandoriTextField: View {
     @Binding var text: String
     let placeholder: String
@@ -14,12 +47,12 @@ struct DandoriTextField: View {
     let helperText: String?
     let errorText: String?
     
-    @Environment(\.dandoriTextFieldAppearance) private var envVariant
+    @Environment(\.dandoriTextFieldVariant) private var envVariant
     @FocusState private var isFocused: Bool
     
     private var layout: DandoriTextFieldLayout {
         DandoriTextFieldLayout(
-            variant: envVariant ?? variant,
+            variant: envVariant,
             size: size,
             state: effectiveState,
             isFocused: isFocused
@@ -86,7 +119,15 @@ struct DandoriTextField: View {
 // MARK: - Convenience Initializers
 
 extension DandoriTextField {
-    /// Cria um campo de texto simples
+    /**
+     * Creates a simple text field with basic configuration.
+     *
+     * - Parameters:
+     *   - text: Binding to the text value
+     *   - placeholder: Placeholder text when field is empty
+     *   - variant: Visual style variant (default: .default)
+     *   - size: Field size (default: .medium)
+     */
     init(
         text: Binding<String>,
         placeholder: String,
@@ -106,6 +147,14 @@ extension DandoriTextField {
 
 // MARK: - Specialized TextField Components
 
+/**
+ * A specialized text field component for search functionality.
+ *
+ * - Parameters:
+ *   - text: Binding to the search text
+ *   - placeholder: Placeholder text for the search field
+ *   - onSearchSubmit: Optional closure called when search is submitted
+ */
 struct DandoriSearchField: View {
     @Binding var text: String
     let placeholder: String
@@ -125,6 +174,50 @@ struct DandoriSearchField: View {
         .onSubmit {
             onSearchSubmit?()
         }
+    }
+}
+
+/**
+ * A specialized text field component for email input with validation.
+ *
+ * - Parameters:
+ *   - email: Binding to the email text value
+ */
+struct DandoriEmailField: View {
+    @Binding var email: String
+    @State private var isValid: Bool = true
+    
+    private var errorText: String? {
+        !isValid ? "Por favor, insira um email válido" : nil
+    }
+    
+    private var state: DandoriTextFieldState {
+        !isValid ? .error : .normal
+    }
+    
+    var body: some View {
+        VStack {
+            DandoriTextField(
+                text: $email,
+                placeholder: "Digite seu email",
+                variant: .default,
+                size: .medium,
+                state: state,
+                icon: Image(systemName: "envelope"),
+                helperText: "Utilizaremos seu email apenas para comunicações importantes",
+                errorText: errorText
+            )
+        }
+        .textFieldStyle(.automatic)
+        .onChange(of: email) { _, newValue in
+            validateEmail(newValue)
+        }
+    }
+    
+    private func validateEmail(_ email: String) {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        isValid = email.isEmpty || emailPredicate.evaluate(with: email)
     }
 }
 
@@ -193,43 +286,5 @@ struct DandoriSearchField: View {
             }
         }
         .padding()
-    }
-}
-
-struct DandoriEmailField: View {
-    @Binding var email: String
-    @State private var isValid: Bool = true
-    
-    private var errorText: String? {
-        !isValid ? "Por favor, insira um email válido" : nil
-    }
-    
-    private var state: DandoriTextFieldState {
-        !isValid ? .error : .normal
-    }
-    
-    var body: some View {
-        VStack {
-            DandoriTextField(
-                text: $email,
-                placeholder: "Digite seu email",
-                variant: .default,
-                size: .medium,
-                state: state,
-                icon: Image(systemName: "envelope"),
-                helperText: "Utilizaremos seu email apenas para comunicações importantes",
-                errorText: errorText
-            )
-        }
-        .textFieldStyle(.automatic)
-        .onChange(of: email) { _, newValue in
-            validateEmail(newValue)
-        }
-    }
-    
-    private func validateEmail(_ email: String) {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
-        isValid = email.isEmpty || emailPredicate.evaluate(with: email)
     }
 }

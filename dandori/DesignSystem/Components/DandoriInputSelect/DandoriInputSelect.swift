@@ -2,8 +2,45 @@ import SwiftUI
 
 // MARK: - DandoriInputSelect Component
 
-/// Input Select component seguindo as diretrizes do Design System Dandori
-/// Implementa dropdown de seleção com visual limpo e acessível
+/**
+ * A customizable dropdown select component that follows Dandori Design System guidelines.
+ * 
+ * This component provides a clean, accessible dropdown interface for selecting from
+ * a list of options with smooth animations and consistent styling.
+ *
+ * ## Usage
+ * ```swift
+ * @State private var selection: Int? = nil
+ * let options = [
+ *     DandoriSelectOption(label: "Option 1", value: 1),
+ *     DandoriSelectOption(label: "Option 2", value: 2)
+ * ]
+ * 
+ * DandoriInputSelect(
+ *     selection: $selection,
+ *     options: options,
+ *     placeholder: "Select an option"
+ * )
+ * ```
+ *
+ * ## Features
+ * - Generic type support for any Hashable value
+ * - Multiple visual variants
+ * - Different sizes (small, medium, large)
+ * - Disabled state support
+ * - Smooth expand/collapse animations
+ * - Environment-based appearance override
+ * - Comprehensive accessibility support
+ * - Customizable placeholder text
+ *
+ * - Parameters:
+ *   - selection: Binding to the currently selected option
+ *   - options: Array of selectable options
+ *   - placeholder: Text displayed when no option is selected
+ *   - variant: Visual style variant (default: .default)
+ *   - size: Component size (default: .medium)
+ *   - isDisabled: Whether the component is disabled (default: false)
+ */
 struct DandoriInputSelect<T: Hashable>: View {
     @Binding var selection: T?
     let options: [DandoriSelectOption<T>]
@@ -68,6 +105,7 @@ struct DandoriInputSelect<T: Hashable>: View {
                 }
                 .padding(.horizontal, layout.horizontalPadding)
                 .padding(.vertical, layout.verticalPadding)
+                .frame(minHeight: DSTokens.Dimensions.touchTargetLarge)
                 .background(layout.backgroundColor)
                 .overlay(
                     RoundedRectangle(cornerRadius: layout.cornerRadius)
@@ -136,6 +174,7 @@ struct DandoriInputSelect<T: Hashable>: View {
                         .foregroundColor(layout.selectedOptionColor)
                 }
             }
+            .frame(minHeight: DSTokens.Dimensions.touchTargetMedium)
             .padding(.horizontal, layout.optionHorizontalPadding)
             .padding(.vertical, layout.optionVerticalPadding)
             .background(option.value == selection ? layout.selectedOptionBackgroundColor : Color.clear)
@@ -151,8 +190,6 @@ struct DandoriInputSelect<T: Hashable>: View {
         }
     }
 }
-
-
 
 // MARK: - Preview
 

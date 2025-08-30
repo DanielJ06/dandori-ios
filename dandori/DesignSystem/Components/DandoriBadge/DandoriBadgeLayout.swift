@@ -9,33 +9,27 @@ struct DandoriBadgeLayout {
     var backgroundColor: Color {
         switch variant {
         case .default:
-            return DSTokens.Colors.Surface.primary  // Fundo branco
+            return DS.Colors.Surface.primary  // Fundo branco
         case .filled:
-            return DSTokens.Colors.Surface.secondary  // #FAF8F5
-        case .accent:
-            return DSTokens.Colors.Accent.teal.light
-        case .status:
-            return DSTokens.Colors.Accent.teal.light
-        case .subtle:
-            return DSTokens.Colors.Surface.secondary.opacity(0.7)
+            return DS.Colors.Accent.light
+        case .accent, .status, .subtle:
+            return DS.Colors.Surface.secondary.opacity(0.7)
         }
     }
     
-    var foregroundColor: Color {
+    var textColor: Color {
         switch variant {
-        case .default, .filled, .subtle:
-            return DSTokens.Colors.Content.primary  // #1C1B1A
-        case .accent:
-            return DSTokens.Colors.Accent.teal.text
-        case .status:
-            return DSTokens.Colors.Accent.teal.text
+        case .default:
+            return DS.Colors.Content.primary  // #1C1B1A
+        case .filled, .accent, .status, .subtle:
+            return DS.Colors.Accent.text
         }
     }
     
     var borderColor: Color {
         switch variant {
         case .default:
-            return DSTokens.Colors.Border.default       // #E3D9CB borda bege
+            return DS.Colors.Border.default       // #E3D9CB borda bege
         case .filled, .accent, .status, .subtle:
             return Color.clear
         }
@@ -72,9 +66,9 @@ struct DandoriBadgeLayout {
     
     var iconSize: CGFloat {
         switch size {
-        case .small: return 10
-        case .medium: return 12
-        case .large: return 14
+        case .small: return 10  // Muito pequeno para usar token padrão
+        case .medium: return 12 // Muito pequeno para usar token padrão
+        case .large: return DSTokens.Dimensions.iconSizeMedium
         }
     }
     

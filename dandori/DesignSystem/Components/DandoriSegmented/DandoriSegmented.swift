@@ -2,17 +2,46 @@ import SwiftUI
 
 // MARK: - DandoriSegmented Component
 
-/// Segmented control seguindo as diretrizes do Design System Dandori
-/// Implementa visual alinhado com a versão web usando tokens atualizados
+/**
+ * A segmented control component that follows Dandori Design System guidelines.
+ * 
+ * This component provides a tabbed interface for selecting between multiple options,
+ * with smooth animations and consistent visual styling.
+ *
+ * ## Usage
+ * ```swift
+ * @State private var selection = 0
+ * let options = ["Option 1", "Option 2", "Option 3"]
+ * 
+ * DandoriSegmented(
+ *     selection: $selection,
+ *     options: options,
+ *     variant: .default
+ * )
+ * ```
+ *
+ * ## Features
+ * - Multiple visual variants
+ * - Smooth selection animations
+ * - Environment-based appearance override
+ * - Accessibility support
+ * - Consistent spacing and styling
+ * - Automatic segment sizing
+ *
+ * - Parameters:
+ *   - selection: Binding to the currently selected segment index
+ *   - options: Array of option strings to display
+ *   - variant: Visual style variant
+ */
 struct DandoriSegmented: View {
     @Binding var selection: Int
     let options: [String]
     let variant: DandoriSegmentedVariant
     
-    @Environment(\.dandoriSegmentedAppearance) private var envVariant
+    @Environment(\.dandoriSegmentedVariant) private var envVariant
     
     private var layout: DandoriSegmentedLayout {
-        DandoriSegmentedLayout(variant: envVariant ?? variant)
+        DandoriSegmentedLayout(variant: envVariant)
     }
     
     var body: some View {
@@ -21,10 +50,10 @@ struct DandoriSegmented: View {
                 segmentButton(for: option, at: index)
             }
         }
-        .background(layout.backgroundColor)
+        .background(layout.containerBackgroundColor)
         .overlay(
             RoundedRectangle(cornerRadius: layout.cornerRadius)
-                .stroke(layout.borderColor, lineWidth: layout.borderWidth)
+                .stroke(layout.containerBorderColor, lineWidth: layout.borderWidth)
         )
         .clipShape(RoundedRectangle(cornerRadius: layout.cornerRadius))
     }
@@ -44,6 +73,7 @@ struct DandoriSegmented: View {
                 .frame(maxWidth: .infinity)
                 .background(backgroundColor(for: index))
                 .clipShape(RoundedRectangle(cornerRadius: layout.segmentRadius))
+                .lineLimit(1)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(Text(option))
@@ -51,18 +81,10 @@ struct DandoriSegmented: View {
     }
     
     private func foregroundColor(for index: Int) -> Color {
-        if selection == index {
-            return layout.selectedForegroundColor
-        } else {
-            return layout.unselectedForegroundColor
-        }
+        layout.segmentTextColor(isSelected: selection == index)
     }
     
     private func backgroundColor(for index: Int) -> Color {
-        if selection == index {
-            return layout.selectedBackgroundColor
-        } else {
-            return Color.clear
-        }
+        layout.segmentBackgroundColor(isSelected: selection == index)
     }
 }

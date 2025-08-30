@@ -10,35 +10,35 @@ struct DandoriInputSelectLayout {
     
     var backgroundColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Surface.tertiary
+            return DS.Colors.Surface.tertiary
         }
         
         switch variant {
         case .default:
-            return DSTokens.Colors.Surface.primary
+            return DS.Colors.Surface.primary
         case .accent:
-            return DSTokens.Colors.Accent.teal.light
+            return DS.Colors.Accent.light
         }
     }
     
     var borderColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Border.default
+            return DS.Colors.Border.default
         }
         
         if isExpanded {
-            return DSTokens.Colors.Border.focus
+            return DS.Colors.Border.focus
         }
         
         switch variant {
         case .default:
-            return DSTokens.Colors.Border.default
+            return DS.Colors.Border.default
         case .accent:
-            return DSTokens.Colors.Accent.teal.base
+            return DS.Colors.Accent.base
         }
     }
     
-    var borderWidth: CGFloat { 1.5 }
+    var borderWidth: CGFloat { DSTokens.Dimensions.borderWidthMedium }
     
     var textFont: Font {
         switch size {
@@ -53,34 +53,34 @@ struct DandoriInputSelectLayout {
     
     var selectedTextColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         }
-        return DSTokens.Colors.Content.primary
+        return DS.Colors.Content.primary
     }
     
     var placeholderColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         }
-        return DSTokens.Colors.Content.secondary
+        return DS.Colors.Content.secondary
     }
     
     var iconFont: Font {
         switch size {
         case .small:
-            return .system(size: 12, weight: .medium)
+            return .system(size: 12, weight: .medium)  // Muito pequeno para usar token padrão
         case .medium:
-            return .system(size: 14, weight: .medium)
+            return .system(size: DSTokens.Dimensions.iconSizeMedium, weight: .medium)
         case .large:
-            return .system(size: 16, weight: .medium)
+            return .system(size: DSTokens.Dimensions.iconSizeLarge, weight: .medium)
         }
     }
     
     var iconColor: Color {
         if isDisabled {
-            return DSTokens.Colors.Content.secondary
+            return DS.Colors.Content.secondary
         }
-        return DSTokens.Colors.Content.secondary
+        return DS.Colors.Content.secondary
     }
     
     var horizontalPadding: CGFloat {
@@ -118,14 +118,14 @@ struct DandoriInputSelectLayout {
     
     // Dropdown styling
     var dropdownBackgroundColor: Color {
-        DSTokens.Colors.Surface.primary
+        DS.Colors.Surface.primary
     }
     
     var dropdownBorderColor: Color {
-        DSTokens.Colors.Border.default
+        DS.Colors.Border.default
     }
     
-    var dropdownBorderWidth: CGFloat { 1 }
+    var dropdownBorderWidth: CGFloat { DSTokens.Dimensions.borderWidthThin }
     
     var dropdownCornerRadius: CGFloat {
         DSTokens.Radius.medium
@@ -135,9 +135,9 @@ struct DandoriInputSelectLayout {
         Color.black.opacity(0.1)
     }
     
-    var dropdownShadowRadius: CGFloat { 8 }
+    var dropdownShadowRadius: CGFloat { DSTokens.Dimensions.shadowRadiusMedium }
     
-    var dropdownShadowY: CGFloat { 4 }
+    var dropdownShadowY: CGFloat { DSTokens.Dimensions.shadowYMedium }
     
     // Option styling
     var optionFont: Font {
@@ -152,35 +152,35 @@ struct DandoriInputSelectLayout {
     }
     
     var optionTextColor: Color {
-        DSTokens.Colors.Content.primary
+        DS.Colors.Content.primary
     }
     
     var selectedOptionColor: Color {
         switch variant {
         case .default:
-            return DSTokens.Colors.Content.primary
+            return DS.Colors.Content.primary
         case .accent:
-            return DSTokens.Colors.Accent.teal.text
+            return DS.Colors.Accent.text
         }
     }
     
     var selectedOptionBackgroundColor: Color {
         switch variant {
         case .default:
-            return DSTokens.Colors.Surface.secondary
+            return DS.Colors.Surface.secondary
         case .accent:
-            return DSTokens.Colors.Accent.teal.light
+            return DS.Colors.Accent.light
         }
     }
     
     var checkmarkFont: Font {
         switch size {
         case .small:
-            return .system(size: 12, weight: .semibold)
+            return .system(size: 12, weight: .semibold)  // Muito pequeno para usar token padrão
         case .medium:
-            return .system(size: 14, weight: .semibold)
+            return .system(size: DSTokens.Dimensions.iconSizeMedium, weight: .semibold)
         case .large:
-            return .system(size: 16, weight: .semibold)
+            return .system(size: DSTokens.Dimensions.iconSizeLarge, weight: .semibold)
         }
     }
     
@@ -207,7 +207,7 @@ struct DandoriInputSelectLayout {
     }
     
     var dividerColor: Color {
-        DSTokens.Colors.Border.default
+        DS.Colors.Border.default
     }
     
     var dividerPadding: CGFloat {

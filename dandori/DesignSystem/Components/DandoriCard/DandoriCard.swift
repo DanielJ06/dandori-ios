@@ -2,19 +2,45 @@ import SwiftUI
 
 // MARK: - DandoriCard Component
 
-/// Generic card component seguindo as diretrizes do Design System Dandori
-/// Implementa visual alinhado com a versão web usando tokens atualizados
-/// Serve como base para todos os tipos de cards específicos
+/**
+ * A generic card container component that follows Dandori Design System guidelines.
+ * 
+ * This component serves as the foundation for all specific card types, providing
+ * consistent styling, spacing, and visual effects while allowing flexible content.
+ *
+ * ## Usage
+ * ```swift
+ * DandoriCard(variant: .default, size: .standard) {
+ *     VStack {
+ *         Text("Card Title")
+ *         Text("Card content goes here")
+ *     }
+ * }
+ * ```
+ *
+ * ## Features
+ * - Multiple visual variants (default, surface, outlined, elevated)
+ * - Different sizes (compact, standard, comfortable)
+ * - Flexible content through ViewBuilder
+ * - Environment-based appearance override
+ * - Consistent spacing and styling
+ * - Shadow and border support
+ *
+ * - Parameters:
+ *   - variant: Visual style variant (default: .default)
+ *   - size: Card size affecting padding (default: .standard)
+ *   - content: ViewBuilder closure containing the card content
+ */
 struct DandoriCard<Content: View>: View {
     let variant: DandoriCardVariant
     let size: DandoriCardSize
     let content: () -> Content
     
-    @Environment(\.dandoriCardAppearance) private var envVariant
+    @Environment(\.dandoriCardVariant) private var envVariant
     
     private var layout: DandoriCardLayout {
         DandoriCardLayout(
-            variant: envVariant ?? variant,
+            variant: envVariant,
             size: size
         )
     }
@@ -97,7 +123,7 @@ struct DandoriCard<Content: View>: View {
                         cardContent(title: "Override Test", subtitle: "Should appear as elevated")
                     }
                 }
-                .dandoriCardAppearance(.elevated)
+                .dandoriCardVariant(.elevated)
             }
         }
         .padding()
@@ -109,11 +135,11 @@ private func cardContent(title: String, subtitle: String) -> some View {
     VStack(alignment: .leading, spacing: 8) {
         Text(title)
             .font(DSTokens.Typography.headingSmall.font)
-            .foregroundColor(DSTokens.Colors.Content.primary)
+            .foregroundColor(DS.Colors.Content.primary)
         
         Text(subtitle)
             .font(DSTokens.Typography.bodyMedium.font)
-            .foregroundColor(DSTokens.Colors.Content.secondary)
+            .foregroundColor(DS.Colors.Content.secondary)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
 }

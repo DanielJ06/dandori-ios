@@ -2,19 +2,20 @@ import SwiftUI
 
 // MARK: - DandoriToast Environment Support
 
-struct DandoriToastAppearanceKey: EnvironmentKey {
-    static let defaultValue: DandoriToastVariant? = nil
+struct DandoriToastVariantKey: EnvironmentKey {
+    typealias Value = DandoriToastVariant
+    static let defaultValue: DandoriToastVariant = .info
 }
 
 extension EnvironmentValues {
-    var dandoriToastAppearance: DandoriToastVariant? {
-        get { self[DandoriToastAppearanceKey.self] }
-        set { self[DandoriToastAppearanceKey.self] = newValue }
+    var dandoriToastVariant: DandoriToastVariant {
+        get { self[DandoriToastVariantKey.self] }
+        set { self[DandoriToastVariantKey.self] = newValue }
     }
 }
 
 extension View {
-    func dandoriToastAppearance(_ variant: DandoriToastVariant) -> some View {
-        environment(\.dandoriToastAppearance, variant)
+    func dandoriToastVariant(_ variant: DandoriToastVariant) -> some View {
+        environment(\.dandoriToastVariant, variant)
     }
 }

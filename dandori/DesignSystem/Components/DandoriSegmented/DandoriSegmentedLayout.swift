@@ -5,36 +5,36 @@ import SwiftUI
 struct DandoriSegmentedLayout {
     let variant: DandoriSegmentedVariant
     
-    var backgroundColor: Color {
-        DSTokens.Colors.Surface.secondary  // #FAF8F5
+    var containerBackgroundColor: Color {
+        DS.Colors.Surface.secondary  // #FAF8F5
     }
     
-    var borderColor: Color {
-        DSTokens.Colors.Border.default  // #E3D9CB
+    var containerBorderColor: Color {
+        DS.Colors.Border.default  // #E3D9CB
     }
     
-    var borderWidth: CGFloat { 1 }
+    var borderWidth: CGFloat { DSTokens.Dimensions.borderWidthThin }
     
-    var selectedBackgroundColor: Color {
-        switch variant {
-        case .default:
-            return DSTokens.Colors.Surface.primary  // Branco
-        case .accent:
-            return DSTokens.Colors.Accent.teal.light
+    func segmentBackgroundColor(isSelected: Bool) -> Color {
+        switch isSelected {
+        case true:
+            return DS.Colors.Surface.primary  // Branco
+        case false:
+            return DS.Colors.Accent.light
         }
     }
     
-    var selectedForegroundColor: Color {
-        switch variant {
-        case .default:
-            return DSTokens.Colors.Content.primary
-        case .accent:
-            return DSTokens.Colors.Accent.teal.text
+    func segmentTextColor(isSelected: Bool) -> Color {
+        switch isSelected {
+        case true:
+            return DS.Colors.Content.primary
+        case false:
+            return DS.Colors.Accent.text
         }
     }
     
-    var unselectedForegroundColor: Color {
-        DSTokens.Colors.Content.secondary
+    var helperTextColor: Color {
+        DS.Colors.Content.secondary
     }
     
     var cornerRadius: CGFloat {

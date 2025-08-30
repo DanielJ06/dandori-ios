@@ -7,48 +7,38 @@ struct DandoriToastLayout {
     
     var backgroundColor: Color {
         switch variant {
-        case .info:
-            return DSTokens.Colors.Surface.primary  // Branco
-        case .success:
-            return DSTokens.Colors.Accent.teal.light
+        case .info, .success:
+            return DS.Colors.Surface.primary  // Branco
         case .warning:
-            return DSTokens.Colors.Surface.secondary
+            return DS.Colors.Accent.light
         case .error:
-            return Color.red.opacity(0.1)
+            return DS.Colors.Surface.secondary
         }
     }
     
-    var foregroundColor: Color {
+    var textColor: Color {
         switch variant {
-        case .info:
-            return DSTokens.Colors.Content.primary
-        case .success:
-            return DSTokens.Colors.Accent.teal.text
-        case .warning:
-            return Color.orange
-        case .error:
-            return Color.red
+        case .info, .error:
+            return DS.Colors.Content.primary
+        case .success, .warning:
+            return DS.Colors.Accent.text
         }
     }
     
     var iconColor: Color {
-        foregroundColor
+        textColor
     }
     
     var closeButtonColor: Color {
-        foregroundColor.opacity(0.7)
+        textColor.opacity(0.7)
     }
     
     var borderColor: Color {
         switch variant {
-        case .info:
-            return DSTokens.Colors.Border.default
-        case .success:
-            return DSTokens.Colors.Accent.teal.base
-        case .warning:
-            return Color.orange
-        case .error:
-            return Color.red
+        case .info, .error:
+            return DS.Colors.Border.default
+        case .success, .warning:
+            return DS.Colors.Accent.base
         }
     }
     
@@ -70,8 +60,8 @@ struct DandoriToastLayout {
         Color.black.opacity(0.08)
     }
     
-    var shadowRadius: CGFloat { 8 }
-    var shadowY: CGFloat { 2 }
+    var shadowRadius: CGFloat { DSTokens.Dimensions.shadowRadiusMedium }
+    var shadowY: CGFloat { DSTokens.Dimensions.shadowYSmall }
     
     var typography: TypographyToken {
         DSTokens.Typography.bodyMedium  // Inter, 14pt, regular
